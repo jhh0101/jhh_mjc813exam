@@ -124,9 +124,124 @@ let exam0415 = new Exam0415();
 //exam0415.exam17();
 //exam0415.exam18();
 
-class Exam0416{
-
-
+class Exam19{
+    square(){
+        let number = prompt("숫자를 두개 입력해주세요");
+        let squareNum = number.split(" ");
+        let a = Number(squareNum[0]);
+        let b = Number(squareNum[1]);
+        let result = 1;
+        for(let i=1; i<=b; i++){
+            result *= a;
+        }
+        console.log(result);
+    }
 }
-let exam0416 = new Exam0416();
-exam0416.exam
+let exam19 = new Exam19();
+//exam19.square();
+
+class Exam25{
+
+    pi(){
+        let number = Number(prompt("원의 반지름 입력"));
+        let result = number * number * 3.14;
+        console.log(result);
+    }
+}
+let exam25 = new Exam25();
+//exam25.pi();
+
+//class Exam25{
+//    result;
+//    constructor(p){
+//        this.result = p;
+//    }
+//
+//    pi(){
+//        return this.result * this.result * 3.14;
+//    }
+//}
+//let exam25 = new Exam25(3);
+//let result=exam25.pi();
+//console.log(result);
+
+
+class Exam26{
+    planet(){
+        let planetName = prompt("행성 이름 입력");
+        switch(planetName) {
+            case "수성":
+            console.log("Mercury");
+            break;
+            case "금성":
+            console.log("Venus");
+            break;
+            case "지구":
+            console.log("Earth");
+            break;
+            case "화성":
+            console.log("Mars");
+            break;
+            case "목성":
+            console.log("Jupiter");
+            break;
+            case "토성":
+            console.log("Saturn");
+            break;
+            case "천왕성":
+            console.log("Uranus");
+            break;
+            case "해왕성":
+            console.log("Neptune");
+            break;
+        }
+    }
+}
+let exam26 = new Exam26();
+//exam26.planet();
+
+class Exam27{
+    maps = new Map;
+    inputFunc(){
+        let names = prompt("이름을 공백으로 구분하여 입력하세요");
+        let score = prompt("점수를 공백으로 구분하여 입력하세요");
+        let arrName = names.split(" ");
+        let arrScore = score.split(" ");
+        for(let i = 0; i < arrName.length; i++){
+            this.maps.set(arrName[i], Number(arrScore[i]));
+        }
+        if(arrName.length != arrScore.length){
+            alert("다시 입력하세요");
+            return false;
+        }
+        console.log(this.maps);
+        return true;
+    }
+    outputFunc(){
+        let strOutput = "";
+        for(let item of this.maps){
+            strOutput += `'${item[0]}': ${item[1]}, `
+        }
+        strOutput = strOutput.substring(0, strOutput.length -2);
+        console.log('{'+strOutput+'}');
+    }
+}
+let exam27 = new Exam27();
+//if ( exam27.inputFunc() ) {   // inputFunc() 를 실행하고 리턴값이 true 이면
+//    exam27.outputFunc();  // outputFunc() 를 실행한다.
+//}
+
+class Exam28{
+    strInput = "";
+    constructor(str){
+        this.strInput = str;
+    }
+    Output(){
+        let strOutput = this.strInput;
+        for(let i = 0; i < strOutput.length-1; i++){
+            console.log(`${strOutput[i]} ${strOutput[i+1]}`);
+        }
+    }
+}
+let exam28 = new Exam28(prompt("문자열을 입력하세요"));
+exam28.Output();
