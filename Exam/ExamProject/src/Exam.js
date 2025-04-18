@@ -271,7 +271,7 @@ class Exam37 {
         }
         console.log(this.maps);
         console.log([...this.maps]);    // [... JavaScript Map, Set, Array] ===> 배열로 변환
-        let item = [...this.maps].reduce( (a,b) =>  // Array reduce 사용
+        let item = Array.from(this.maps).reduce( (a,b) =>  // Array reduce 사용
             a[1] >= b[1] ? a : b    // 앞의 원소 a[1] 값 >= 뒤의 원소 b[1] 값 보다 크면 a 를 리턴
         );
         return item;
@@ -284,6 +284,72 @@ class Exam37 {
     }
 }
 // 원범 혜원 유빈 원범 혜원 곰 유빈 원범 곰 혜원 호랑이 혜원
-let exam37 = new Exam37(prompt("투표할 항목을 공백으로 구분해서 입력하세요."));
-let result = exam37.checkVotes();
-console.log(`투표 결과 ${result[0]}가 ${result[1]}표로 가장 많습니다.`);
+//let exam37 = new Exam37(prompt("투표할 항목을 공백으로 구분해서 입력하세요."));
+//let result = exam37.checkVotes();
+//console.log(`투표 결과 ${result[0]}가 ${result[1]}표로 가장 많습니다.`);
+
+class Exam40{
+    weight(){
+        let w1 = prompt("제한 무게 입력");
+        let newW1 = Number(w1);
+
+        let num1 = prompt("친구들 수 입력");
+        let newNum1 = Number(num1);
+
+        let w2 = prompt("친구들 몸무게 입력(공백으로)");
+
+
+        let arr = w2.split(" ").map((x) => Number(x));
+
+
+        let result = 0;
+        let num2 = 0;
+        for(let i = 0; i < newNum1; i++){
+            if(newW1 < arr[i] + result){
+                return num2;
+            }
+            num2 += 1;
+            result += arr[i];
+        }
+
+
+    }
+}
+let exam40 = new Exam40();
+//let count = exam40.weight();
+//console.log(count);
+
+class Exam41{
+    num(){
+        let number = prompt("숫자 입력");
+        let number1 = Number(number);
+        let answer = "";
+        if(number1 == 2 || number1 == 1){
+            answer = "Yes";
+        }
+        for(let i = 2; i < number1; i++){
+            if(number1 % i == 0){
+                answer = "No";
+                break;
+            }
+            else {
+                answer = "Yes";
+            }
+        }
+        console.log(answer);
+    }
+}
+let exam41 = new Exam41();
+//exam41.num();
+
+class Exam42{
+    day(){
+        let month = prompt("월 입력");
+        let date = prompt("일 입력");
+        let d = new Date(`2020-${month}-${date}`);
+        let str = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+        console.log(str[d.getDay()]);
+    }
+}
+let exam42 = new Exam42();
+exam42.day();
