@@ -352,4 +352,105 @@ class Exam42{
     }
 }
 let exam42 = new Exam42();
-exam42.day();
+//exam42.day();
+
+
+class Exam53{
+    strExam(){
+        let str = "";
+        let msg = Array.from(prompt("괄호 입력"));
+
+        let count1 = 0;
+        let count2 = 0;
+        let count3 = 0;
+
+        for(let i = 0; i < msg.length; i++){
+            if(msg[i] == "("){
+                count1++;
+            }else if(msg[i] == "{"){
+                count2++;
+            }else if(msg[i] == "["){
+                count3++;
+            }else if(msg[i] == ")"){
+                count1--;
+            }else if(msg[i] == "}"){
+                count2--;
+            }else if(msg[i] == "]"){
+                count3--;
+            }
+            if(count1 < 0 || count2 < 0 || count3 < 0){
+                str = "No";
+                break;
+            }
+        }
+        if(count1 == 0 && count2 == 0 && count3 == 0){
+            str = "Yes";
+        }else{
+            str = "No";
+        }
+        console.log(str);
+    }
+}
+let exam53 = new Exam53();
+//exam53.strExam();
+
+class Exam58{
+    solve1(){
+        let result = "";
+        let arrReverse = [];
+        let strInput = prompt("숫자 입력");
+        let strReverse = Array.from(strInput).reverse();
+        for(let i = strReverse.length-1; i >= 0; i--){
+            arrReverse += strReverse[i];
+            if(i > 0 && i % 3 == 0){
+                arrReverse += ",";
+            }
+        }
+        result = arrReverse;
+        console.log(`${result}`);
+    }
+}
+let exam58= new Exam58();
+//exam58.solve1();
+
+class Exam59{
+    solve1(){
+        let strInput = prompt("문자 입력");
+        let max = 50;
+        let result = "";
+        let str = "";
+        for(let i = 0; i < (max-strInput.length)/2; i++){
+            str += "=";
+        }
+        result = str + strInput + str;
+        if(result.length > 50){
+            result = result.substr(0, result.length - 1);
+        }
+        console.log(result);
+    }
+}
+let exam59= new Exam59();
+//exam59.solve1();
+
+class Exam61{
+    solve1(){
+        let text = prompt("문자입력");
+        let arrNum = 0;
+        let arrChar = text.split("");
+        let result = "";
+        for(let i = 0; i < text.length; i++){
+            for(let j = 0; j <= i; j++){
+                if(text[i] == arrChar[j]){
+                    arrNum++;
+                }
+            }if(text[i] != text[i+1]){
+                result += text[i] + arrNum;
+            }
+            arrNum = 0;
+        }
+        console.log(result);
+    }
+
+}
+let exam61= new Exam61();
+exam61.solve1();
