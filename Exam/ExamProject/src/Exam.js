@@ -453,4 +453,115 @@ class Exam61{
 
 }
 let exam61= new Exam61();
-exam61.solve1();
+//exam61.solve1();
+
+class Exam68{
+    arrTimeBus = [];
+    timeNow = "";
+    constructor(timeBus, timeNow) {
+        let arrHm = timeBus.split(", ");
+        arrHm.forEach((item) => (this.arrTimeBus.push(this.makeDateObject(item.split(":")))));
+
+        this.timeNow = this.makeDateObject(timeNow.split(":"));
+    }
+    makeDateObject(arrInput) {
+        let dtTemp = new Date();
+        dtTemp.setHours(Number(arrInput[0]));
+        dtTemp.setMinutes(Number(arrInput[1]));
+        dtTemp.setSeconds(0);
+        return dtTemp;
+    }
+    solve() {
+        let result = [];
+        for( let i = 0; i < this.arrTimeBus.length; i++ ) {
+            if ( this.timeNow >= this.arrTimeBus[i] ) {
+                result.push("지나갔습니다.");
+            } else {
+                let msg = this.checkTime(this.timeNow, this.arrTimeBus[i]);
+                result.push(msg);
+            }
+        }
+        console.log(`${result}`);
+
+    }
+    checkTime(timeNow, timeBus) {
+        let diffMS = timeBus.getTime() - timeNow.getTime();
+        let diffMin = diffMS / 1000 / 60;
+        let diffHour = (Math.floor(diffMin / 60)).toString();
+        let difMin = (diffMin % 60).toString();
+        return `${diffHour.padStart(2,"0")}시간 ${difMin.padStart(2,"0")}분`;
+    }
+}
+
+//let timeBus = prompt("버스 시간 3개 입력");
+//let timeNow = prompt("현재 시간 입력");
+//let exam68 = new Exam68(timeBus, timeNow);
+//exam68.solve();
+
+class Exam84{
+    number = [];
+    constructor(n, k){
+        let arr = n.split("");
+        arr.sort((a, b) => {return b-a});
+        for(let i = 0; i < k; i++){
+            this.number += arr[i];
+        }
+    }
+    solve(){
+        console.log(this.number);
+    }
+
+}
+//let n = prompt("숫자 입력");
+//let k = prompt("개수 입력");
+//let exam84 = new Exam84(n, k);
+//exam84.solve();
+
+
+class User{
+    name = "";
+    number = 0;
+    constructor(name, number){
+        this.name = name;
+        this.number = Number(number);
+    }
+}
+
+class Exam87{
+    arrMember=[];
+    constructor(strName, strNumber){
+        let arrName = strName.split(" ");
+        let arrNumber = strNumber.split(" ");
+        for(let i = 0; i < arrName.length; i++){
+            let member = new User(arrName[i], arrNumber[i]);
+            this.arrMember.push(member);
+        }
+        this.arrMember.sort((a, b) => b.number - a.number);
+    }
+    solve(){
+        let result = "{";
+        for(let i = 0; i < this.arrMember.length; i++){
+            result += `${this.arrMember[i].name} : ${i+1} `;
+        }
+        console.log(result+"}");
+    }
+}
+//let strName = prompt("이름 입력(공백으로 구분)");
+//let strNumber = prompt("숫자 입력(공백으로 구분)");
+//let exam87 = new Exam87(strName, strNumber);
+//exam87.solve();
+
+//class Exam91{
+//    score(){
+//        let score = [];
+//        let totalAvg = 0;
+//        for(let i = 0; i < 5; i++){
+//            score.push(Math.floor(Math.random()*100)+1);
+//        }
+//        console.log(score);
+//    }
+//}
+//let exam91 = new Exam91();
+//exam91.score();
+
+
