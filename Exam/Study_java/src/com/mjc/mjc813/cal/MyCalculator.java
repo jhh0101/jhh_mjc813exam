@@ -7,6 +7,6 @@ public class MyCalculator {
     }
     public long myAdd(long a, long b){
         return a+b;
-    }
+    }//
 }
 //
