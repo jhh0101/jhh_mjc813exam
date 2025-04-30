@@ -10,8 +10,10 @@ public class MyClass {
         long b1 = 123456789012345L, b2 = 98765432198765L;
 
 
-        System.out.println("두 수 "+a1 +", "+ a2+"의 값은 " + mCal.myAdd(a1, a2) + "입니다.");
-        System.out.println("두 수 "+b1 +", "+ b2+"의 값은 " + mCal.myAdd(b1, b2) + "입니다.");
+//        System.out.println("두 수 "+ a1 +", "+ a2 +"의 값은 " + mCal.myAdd(a1, a2) + "입니다.");
+//        System.out.println("두 수 "+ b1 +", "+ b2 +"의 값은 " + mCal.myAdd(a1, a2) + "입니다.");
+        System.out.printf("두 수 (%d, %d)의 값은 %d입니다.\n", a1, a2, mCal.myAdd(a1, a2));
+        System.out.printf("두 수 (%d, %d)의 값은 %d입니다.\n", b1, b2, mCal.myAdd(b1, b2));
     }
 }
 //
