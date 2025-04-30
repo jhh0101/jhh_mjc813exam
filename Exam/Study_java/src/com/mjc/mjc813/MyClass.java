@@ -14,7 +14,7 @@ public class MyClass {
         System.out.println("두 수 "+b1 +", "+ b2+"의 값은 " + mCal.myAdd(b1, b2) + "입니다.");
     }
 }
-
+//
 // com.mjc.mjc813.cal.MyCalculator 클래스를 만든다.
 // int myAdd(int a, int b) 라는 멤버메소드를 만든다.
 // long myAdd(long a, long b) 라는 멤버메소드를 만든다.
