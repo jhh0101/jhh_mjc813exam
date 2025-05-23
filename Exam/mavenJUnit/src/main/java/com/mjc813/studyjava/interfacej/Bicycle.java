@@ -2,6 +2,9 @@ package com.mjc813.studyjava.interfacej;
 
 public class Bicycle implements IBicycle{
 
+    private String name;
+    private int wheelCount;
+
     public String getName() {
         return name;
     }
@@ -18,11 +21,9 @@ public class Bicycle implements IBicycle{
         this.wheelCount = wheelCount;
     }
 
-    private String name;
-    private int wheelCount;
-
-    void Bicycle(String name, int wheelCount){
-
+    public Bicycle(String name, int wheelCount){
+        this.name = name;
+        this.wheelCount = wheelCount;
     }
 
     @Override

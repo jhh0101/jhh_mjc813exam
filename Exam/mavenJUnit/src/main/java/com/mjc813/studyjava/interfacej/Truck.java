@@ -20,8 +20,9 @@ public class Truck implements IVehicle{
         this.wheelCount = wheelCount;
     }
 
-    public void Truck(String name, int wheelCount){
-
+    public Truck(String name, int wheelCount){
+        this.name = name;
+        this.wheelCount = wheelCount;
     }
 
     @Override
