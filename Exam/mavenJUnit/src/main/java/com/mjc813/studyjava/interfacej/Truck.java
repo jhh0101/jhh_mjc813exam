@@ -1,24 +1,11 @@
 package com.mjc813.studyjava.interfacej;
 
+import lombok.Data;
+
+@Data
 public class Truck implements IVehicle{
     private String name;
     private int wheelCount;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getWheelCount() {
-        return wheelCount;
-    }
-
-    public void setWheelCount(int wheelCount) {
-        this.wheelCount = wheelCount;
-    }
 
     public Truck(String name, int wheelCount){
         this.name = name;
@@ -27,11 +14,11 @@ public class Truck implements IVehicle{
 
     @Override
     public String drive() {
-        return this.wheelCount+"개의 바퀴의 트럭"+this.name+"을 운전한다.";
+        return this.getWheelCount()+"개의 바퀴의 트럭 "+this.getName()+"을 운전한다.";
     }
 
     @Override
     public String breakk() {
-        return "트럭"+this.name+"을 정지한다.";
+        return "트럭 "+this.getName()+"을 정지한다.";
     }
 }
