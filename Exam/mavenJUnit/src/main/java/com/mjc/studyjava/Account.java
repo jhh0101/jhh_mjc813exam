@@ -15,7 +15,7 @@ public class Account {
     public Account(String accountNumber, String accountName) {
         this(accountNumber, accountName, 0);
     }
-
+//
     /**
      * Account 비기본 생성자 (계좌번호, 계좌주, 초기금액)
      * @param accountNumber
