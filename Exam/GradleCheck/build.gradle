@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group = 'com.mjc813'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.0')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation group:'org.junit.jupiter', name:'junit-jupiter-api', version:'5.8.2'
+    testImplementation group:'org.assertj', name:'assertj-core', version:'3.22.0'
+}
+
+test {
+    useJUnitPlatform()
+}
