@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'com.mjc813'
@@ -7,6 +8,7 @@ version = '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -14,6 +16,25 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter'
     testImplementation group:'org.junit.jupiter', name:'junit-jupiter-api', version:'5.8.2'
     testImplementation group:'org.assertj', name:'assertj-core', version:'3.22.0'
+    implementation group:'com.mjc813', name:'GradleTestProject', version:'1.0-SNAPSHOT'
+}
+
+
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = group
+            artifactId = rootProject.name
+            version = version
+
+            artifact "./build/libs/" + rootProject.name + "-" + version + ".jar"
+        }
+    }
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
 }
 
 test {

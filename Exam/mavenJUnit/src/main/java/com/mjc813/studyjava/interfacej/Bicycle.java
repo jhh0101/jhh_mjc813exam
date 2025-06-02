@@ -1,9 +1,9 @@
 package com.mjc813.studyjava.interfacej;
 
 
-import lombok.Data;
 
-@Data
+
+
 public class Bicycle implements IBicycle{
 
     private String name;
@@ -12,6 +12,22 @@ public class Bicycle implements IBicycle{
 
     public Bicycle(String name, int wheelCount){
         this.name = name;
+        this.wheelCount = wheelCount;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getWheelCount() {
+        return wheelCount;
+    }
+
+    public void setWheelCount(int wheelCount) {
         this.wheelCount = wheelCount;
     }
 

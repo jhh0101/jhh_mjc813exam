@@ -29,7 +29,7 @@ public class TestMjcValidCheck {
         assertThat(mvc.isValidEmail("ab12@a.b.com")).isEqualTo(false);
         assertThat(mvc.isValidEmail("ab12@a@b.com")).isEqualTo(false);
         assertThat(mvc.isValidEmail("ab12ab.com")).isEqualTo(false);
-        assertThat(mvc.isValidEmail("ab12@abcom")).isEqualTo(false);
+        assertThat(mvc.isValidEmail("ab12@ab13121212132132132132123123.com")).isEqualTo(false);
         assertThat(mvc.isValidEmail("ab12@ab.com")).isEqualTo(true);
     }
 }

@@ -6,6 +6,8 @@
 package com.mjc813.mjc_library;
 
 
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         MjcPoint mp = new MjcPoint();
@@ -14,5 +16,7 @@ public class Main {
         mp.addPoint(new SampleMarketInfo(), 50);
         mp.subPoint((IMarketInfo)null, 20);
         mp.subPoint(new SampleMarketInfo(), 20);
+
+
     }
 }

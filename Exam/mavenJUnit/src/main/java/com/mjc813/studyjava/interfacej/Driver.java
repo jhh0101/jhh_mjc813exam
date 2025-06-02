@@ -1,9 +1,7 @@
 package com.mjc813.studyjava.interfacej;
 
 
-import lombok.Data;
 
-@Data
 public class Driver {
     private String name;
     private int age;
@@ -12,6 +10,30 @@ public class Driver {
     public Driver(String name, int age, IVehicle ivehicle){
         this.name = name;
         this.age = age;
+        this.ivehicle = ivehicle;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public IVehicle getIvehicle() {
+        return ivehicle;
+    }
+
+    public void setIvehicle(IVehicle ivehicle) {
         this.ivehicle = ivehicle;
     }
 
