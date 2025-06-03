@@ -1,5 +1,8 @@
 package com.mjc813.studyjava.interfacej;
 
+import lombok.Data;
+
+@Data
 public class Truck implements IVehicle{
     private String name;
     private int wheelCount;
@@ -7,22 +10,6 @@ public class Truck implements IVehicle{
     public Truck(String name, int wheelCount){
         setName(name);
         setWheelCount(wheelCount);
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getWheelCount() {
-        return wheelCount;
-    }
-
-    public void setWheelCount(int wheelCount) {
-        this.wheelCount = wheelCount;
     }
 
     @Override
