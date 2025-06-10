@@ -16,12 +16,13 @@ public class ClientRead implements Runnable{
             while (true) {
                 String str = reader.readLine();
                 if (str == null) {
-                    System.out.println("연결을 종료했습니다.");
+                    System.out.println("서버 연결 종료됨");
                     break;
                 }
                 if ("exit".equals(str)) {
                     str = "exit!@#$app";
                     System.out.println("상대 : " + str);
+                    System.out.println("서버 연결 종료됨");
                     break;
                 }
                 System.out.println("상대 : " + str);

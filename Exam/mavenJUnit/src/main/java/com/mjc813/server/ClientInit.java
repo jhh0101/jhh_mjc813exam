@@ -9,6 +9,7 @@ public class ClientInit {
     public void init(String ipAddr, int port, Socket sck) throws IOException {
         SocketAddress sa = new InetSocketAddress(ipAddr, port);
         sck.connect(sa);
+
         // Ip 주소와 포트로 접속한다.
     }
 }
