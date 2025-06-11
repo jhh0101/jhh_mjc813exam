@@ -24,7 +24,8 @@ public class ClientWrite implements Runnable {
                 if ("exit".equals(message) || message == null) {
                     message = "exit!@#$app";
                     try {
-                        bw.write(message + "\n");
+                        bw.write(message);
+                        bw.newLine();
                         bw.flush();
                     } catch (IOException e) {
                         try {
@@ -36,13 +37,13 @@ public class ClientWrite implements Runnable {
                 }
                 try {
                     System.out.println("나 : " + message);
-                    bw.write(message + "\n");
+                    bw.write(message);
+                    bw.newLine();
                     bw.flush();
                 } catch (IOException e) {
                     try {
                         bw.close();
                     } catch (IOException ex) {
-                        throw new RuntimeException(ex);
                     }
                 }
 
