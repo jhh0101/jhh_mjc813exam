@@ -1,4 +1,4 @@
-package com.mjc813.server;
+package com.mjc813.server_study.client;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

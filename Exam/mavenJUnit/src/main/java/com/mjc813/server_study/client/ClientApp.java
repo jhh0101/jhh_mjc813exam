@@ -1,4 +1,4 @@
-package com.mjc813.server;
+package com.mjc813.server_study.client;
 
 import java.io.*;
 import java.net.Socket;
@@ -12,7 +12,7 @@ public class ClientApp {
         System.out.println("Client start");
 
         try {
-            cI.init("10.11.83.70", 19999, sck); //10.11.83.70
+            cI.init("127.0.0.1", 19999, sck); //10.11.83.70
             ClientWrite cw = new ClientWrite(new OutputStreamWriter(sck.getOutputStream()));
             ClientRead cr = new ClientRead(new InputStreamReader(sck.getInputStream()));
 

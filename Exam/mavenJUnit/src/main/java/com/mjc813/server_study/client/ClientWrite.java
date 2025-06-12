@@ -1,8 +1,5 @@
-package com.mjc813.server;
+package com.mjc813.server_study.client;
 
-import lombok.SneakyThrows;
-
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
