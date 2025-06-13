@@ -1,0 +1,34 @@
+package com.mjc813.server_study.server3.client;
+
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+
+public class ClientApp {
+
+    public static void main(String[] args) throws IOException {
+        Socket sck = new Socket();
+        ClientInit cI = new ClientInit();
+
+        System.out.println("Client start");
+
+        try {
+            cI.init("127.0.0.1", 19999, sck); //10.11.83.70
+            ClientWrite cw = new ClientWrite(new OutputStreamWriter(sck.getOutputStream()));
+            ClientRead cr = new ClientRead(new InputStreamReader(sck.getInputStream()));
+
+            Thread read = new Thread(cr, "clientRead");
+            Thread write = new Thread(cw, "clientWrite");
+
+            read.start();
+            write.start();
+
+            read.join();
+            write.join();
+
+        } catch (IOException | InterruptedException e) {
+            System.err.println(e.toString());
+        }
+    }
+}
