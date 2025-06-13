@@ -1,5 +1,7 @@
 package com.mjc813.string;
 
+import java.util.ArrayList;
+
 public class StringBuilderEx {
     public static void main(String[] args) {
         String data = new StringBuilder()
