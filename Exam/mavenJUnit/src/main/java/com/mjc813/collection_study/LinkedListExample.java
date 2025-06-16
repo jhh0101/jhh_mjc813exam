@@ -1,12 +1,14 @@
 package com.mjc813.collection_study;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
 public class LinkedListExample {
     public static void main(String[] args) throws InterruptedException {
-        List<String> list1 = new Vector<>();
-        List<String> list2 = new Vector<>();
+        List<String> list1 = new ArrayList<>();
+        List<String> list2 = new LinkedList<>();
 
         long startTime;
         long endTime;
@@ -16,14 +18,14 @@ public class LinkedListExample {
             list1.add(0, String.valueOf(i));
         }
         endTime = System.nanoTime();
-        System.out.println((endTime - startTime) + "ns");
+        System.out.println("ArrayList : "+(endTime - startTime) + "ns");
 
         startTime = System.nanoTime();
         for (int i = 0; i <= 10000; i++) {
             list2.add(0, String.valueOf(i));
         }
         endTime = System.nanoTime();
-        System.out.println((endTime - startTime) + "ns");
+        System.out.println("LinkedList : "+(endTime - startTime) + "ns");
 
 
     }
