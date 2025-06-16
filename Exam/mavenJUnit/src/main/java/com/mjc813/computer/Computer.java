@@ -3,9 +3,11 @@ package com.mjc813.computer;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Comparator;
+
 @Getter
 @Setter
-public class Computer {
+public class Computer implements Comparable<Computer> {
     private String name;
     private ECpu cpu;
     private ERam ram;
@@ -74,5 +76,16 @@ public class Computer {
         return "이름 : " + name + ", cpu : " + cpu + ", ram : " + ram + ", storage : " + storage + ", graphicCard : " + graphicCard;
     }
 
+    @Override
+    public int compareTo(Computer o) {
+        return this.cpu.compareTo(o.getCpu());
+    }
 
+//    compareTo 와 compare 메소드를 오버라이드 재정의 한다.
+//    compareTo 메소드는 cpu 멤버변수의 성능이 작다, 같다, 크다로 구분하는 기능을 구현한다.
+//    compare 메소드는 ram 멤버변수의 크기가 작다, 같다, 크다로 구분하는 기능을 구현한다.
+//15장의 예제들을 본인이 직접 소스 개발 해보세요. (클래스를 별도로 만들필요 없이 Chapter15 클래스의 메소드로 추가해도된다.)
+//            15장의 확인문제 소스를 직접 풀어보세요.
+//6월13일 문제의 Computer 클래스를 HashSet 에 저장할때 키를 무엇으로 할지 결정하고 저장해보세요
+//6월13일 문제의 Computer 클래스를 TreeMap 에 5월16일 자료를 저장할때 자동으로 정렬되는것을 확인해보세요.
 }

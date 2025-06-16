@@ -1,7 +1,6 @@
 package com.mjc813.collection_study;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class HashSetExample {
 
@@ -11,8 +10,9 @@ public class HashSetExample {
         set.add("Java");
         set.add("JDBC");
         set.add("JSP");
-        set.add("Java"); //중복 안됨
+        set.add("Java"); // 중복 안됨
         set.add("Spring");
+        set.add(null);  // null 가능
 
         int size = set.size();
         System.out.println(size);
@@ -20,13 +20,15 @@ public class HashSetExample {
         printSetArr(set);
 
         System.out.println();
-        set.remove("JSP");
+        set.remove("JSP"); // "JSP" 삭제
         printSetArr(set);
-
     }
+
     public static void printSetArr(Set<String> set){
         for (String s : set) {
-            System.out.print(s + " ");
+            System.out.print(s + ", ");
         }
     }
+
+
 }
