@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -67,11 +68,6 @@ public class Computer implements Comparable<Computer> {
     }
 
     @Override
-    public boolean equals(Object o) {
-        return o == cpu && o == ram && o == storage && o == graphicCard;
-    }
-
-    @Override
     public String toString() {
         return "이름 : " + name + ", cpu : " + cpu + ", ram : " + ram + ", storage : " + storage + ", graphicCard : " + graphicCard;
     }
@@ -81,7 +77,19 @@ public class Computer implements Comparable<Computer> {
         return this.cpu.compareTo(o.getCpu());
     }
 
-//    compareTo 와 compare 메소드를 오버라이드 재정의 한다.
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Computer computer = (Computer) o;
+        return Objects.equals(name, computer.name) && cpu == computer.cpu && ram == computer.ram && storage == computer.storage && graphicCard == computer.graphicCard && Objects.equals(mouse, computer.mouse);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, cpu, ram, storage, graphicCard, mouse);
+    }
+
+    //    compareTo 와 compare 메소드를 오버라이드 재정의 한다.
 //    compareTo 메소드는 cpu 멤버변수의 성능이 작다, 같다, 크다로 구분하는 기능을 구현한다.
 //    compare 메소드는 ram 멤버변수의 크기가 작다, 같다, 크다로 구분하는 기능을 구현한다.
 //15장의 예제들을 본인이 직접 소스 개발 해보세요. (클래스를 별도로 만들필요 없이 Chapter15 클래스의 메소드로 추가해도된다.)

@@ -1,7 +1,5 @@
 package com.mjc813.collection_study;
 
-import java.util.Objects;
-
 public class Board {
     private String subject;
     private String content;
