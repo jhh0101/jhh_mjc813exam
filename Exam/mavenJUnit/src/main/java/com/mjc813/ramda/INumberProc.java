@@ -1,7 +1,6 @@
 package com.mjc813.ramda;
 
-import java.util.List;
-
+@FunctionalInterface
 public interface INumberProc {
     public void process(String str, Integer age);
 }

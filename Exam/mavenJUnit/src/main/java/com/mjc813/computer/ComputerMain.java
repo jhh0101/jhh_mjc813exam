@@ -27,19 +27,16 @@ public class ComputerMain{
             coms[i].setStorage(EStorage.SSD_500GB);
             coms[i].setGraphicCard(EGraphicCard.Intel_A770);
         }
-        hsComputer.add(coms[0]);
-        hsComputer.add(coms[1]);
-        hsComputer.add(coms[2]);
-        hsComputer.add(coms[3]);
-        hsComputer.add(coms[4]);
+
+        hsComputer.add(new Computer("com 111", ECpu.Gen9_i9, ERam.RAM_32GB, EStorage.SSD_2000GB, EGraphicCard.RTX_4080));
+        hsComputer.add(new Computer("com 112", ECpu.Gen9_i5, ERam.RAM_4GB, EStorage.SSD_1000GB, EGraphicCard.Intel_A770));
+        hsComputer.add(new Computer("com 113", ECpu.Gen9_i7, ERam.RAM_16GB, EStorage.SSD_500GB, EGraphicCard.GTX_1660));
+        hsComputer.add(new Computer("com 114", ECpu.Gen9_i5, ERam.RAM_8GB, EStorage.SSD_1000GB, EGraphicCard.RTX_4080));
 
         for (Computer c : hsComputer) {
             System.out.println(c);
         }
 
-        System.out.println(Arrays.toString(coms));
-        Arrays.sort(coms, new ComputerComparator());
-        System.out.println(Arrays.toString(coms));
         for( Computer com : coms ) {
             com.booting();
             com.print();

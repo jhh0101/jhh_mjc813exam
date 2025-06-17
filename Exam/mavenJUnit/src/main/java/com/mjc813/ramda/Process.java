@@ -21,6 +21,20 @@ public class Process {
     public void number(IArrayProc iap){
         iap.process(l);
     }
+    public static Long sum(List<Integer> list) {
+        Long sum = 0L;
+        for (Integer i : list) {
+            sum += i;
+        }
+        System.out.printf("합은 {%d} 입니다.\n", sum);
+        return sum;
+    }
+    public static Long avg(List<Integer> list) {
+        Long sum = sum(list);
+        Long avg = sum / list.size();
+        System.out.printf("평균은 {%d} 입니다.\n", avg);
+        return avg;
+    }
 
 
 }
