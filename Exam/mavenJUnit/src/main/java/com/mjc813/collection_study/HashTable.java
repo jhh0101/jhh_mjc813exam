@@ -1,11 +1,11 @@
 package com.mjc813.collection_study;
 
-import java.util.Hashtable;
-import java.util.Map;
+import java.util.*;
 
 public class HashTable {
     public static void main(String[] args) {
         Map<String, Integer> map = new Hashtable<>(); // synchronized 되어 있음
+        Map<String, Integer> map1 = Collections.synchronizedMap(new HashMap<>()); // 멀티 스레드 안전
 
         Thread threadA = new Thread(){
             @Override

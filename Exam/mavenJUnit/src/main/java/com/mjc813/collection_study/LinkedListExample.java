@@ -1,9 +1,6 @@
 package com.mjc813.collection_study;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Vector;
+import java.util.*;
 
 public class LinkedListExample {
     public static void main(String[] args) throws InterruptedException {
