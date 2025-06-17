@@ -1,11 +1,14 @@
 package com.mjc813.collection_study;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Vector;
 
 public class VectorExample {
     public static void main(String[] args) throws InterruptedException {
         List<Board> list = new Vector<>();
+        List<String> list2 = Collections.synchronizedList(new ArrayList<>()); // 멀티스레드 안전
 
         Thread threadA = new Thread(() -> {
             for (int i = 1; i <= 1000; i++) {
