@@ -30,7 +30,10 @@ public class Process {
         return sum;
     }
     public static Long avg(List<Integer> list) {
-        Long sum = sum(list);
+        Long sum = 0L;
+        for (Integer i : list) {
+            sum += i;
+        }
         Long avg = sum / list.size();
         System.out.printf("평균은 {%d} 입니다.\n", avg);
         return avg;
