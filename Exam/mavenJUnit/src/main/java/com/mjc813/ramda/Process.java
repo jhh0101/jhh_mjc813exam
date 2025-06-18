@@ -1,6 +1,5 @@
 package com.mjc813.ramda;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Process {

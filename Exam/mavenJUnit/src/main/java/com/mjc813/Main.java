@@ -1,11 +1,9 @@
 package com.mjc813;
 
-import java.util.HashSet;
-import java.util.Set;
+import com.mjc813.string.StringBuilderEx;
 
 public class Main {
     public static void main(String[] args) {
-        Set<String> set = new HashSet<>();
-        set.add("java");
+
     }
 }

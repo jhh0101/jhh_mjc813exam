@@ -7,22 +7,16 @@ public class HashTable {
         Map<String, Integer> map = new Hashtable<>(); // synchronized 되어 있음
         Map<String, Integer> map1 = Collections.synchronizedMap(new HashMap<>()); // 멀티 스레드 안전
 
-        Thread threadA = new Thread(){
-            @Override
-            public void run(){
-                for(int i = 1; i <= 1000; i++){
-                    map.put(String.valueOf(i), i);
-                }
+        Thread threadA = new Thread(() -> {
+            for(int i = 1; i <= 1000; i++){
+                map.put(String.valueOf(i), i);
             }
-        };
-        Thread threadB = new Thread(){
-            @Override
-            public void run(){
-                for(int i = 1001; i <= 2000; i++){
-                    map.put(String.valueOf(i), i);
-                }
+        });
+        Thread threadB = new Thread(() -> {
+            for(int i = 1001; i <= 2000; i++){
+                map.put(String.valueOf(i), i);
             }
-        };
+        });
         threadA.start();
         threadB.start();
 

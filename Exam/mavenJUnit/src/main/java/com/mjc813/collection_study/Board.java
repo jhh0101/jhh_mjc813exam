@@ -1,5 +1,7 @@
 package com.mjc813.collection_study;
 
+import java.util.Objects;
+
 public class Board {
     private String subject;
     private String content;
@@ -42,5 +44,17 @@ public class Board {
                 ", content='" + content + '\'' +
                 ", writer='" + writer + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Board board = (Board) o;
+        return Objects.equals(subject, board.subject) && Objects.equals(content, board.content) && Objects.equals(writer, board.writer);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(subject, content, writer);
     }
 }
