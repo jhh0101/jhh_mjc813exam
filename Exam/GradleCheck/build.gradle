@@ -28,7 +28,7 @@ publishing {
             artifactId = rootProject.name
             version = version
 
-            artifact "./build/libs/" + rootProject.name + "-" + version + ".jar"
+            artifact(tasks.named("jar"))
         }
     }
     repositories {
