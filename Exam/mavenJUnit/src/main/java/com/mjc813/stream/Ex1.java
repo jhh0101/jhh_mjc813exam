@@ -1,23 +1,20 @@
 package com.mjc813.stream;
 
-import com.mjc813.thread.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Parallel {
+public class Ex1 {
     public static void main(String[] args) {
         List<Integer> list1 = new ArrayList<>();
         for (int i = 0; i < 10000; i++) {
             list1.add((int) (Math.random()*1000+1));
         }
-        Log log = new Log();
-        list1.parallelStream().forEach(log::log); // 다른 쓰레드로 작동
-        list1.forEach(log::log);
 
-
+//        Map<Boolean, List<Integer>> collect = list1.stream()
+//                .sorted()
+//                .collect(Collectors.partitioningBy(a -> a > 500));
+//        System.out.println(collect);
     }
-
 }
