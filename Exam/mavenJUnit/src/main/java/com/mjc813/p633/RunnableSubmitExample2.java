@@ -1,18 +1,13 @@
 package com.mjc813.p633;
 
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class RunnableSubmitExample2 {
-    private static ExecutorService executorService = Executors.newFixedThreadPool(5);
-
+    private static final ExecutorService executorService = Executors.newFixedThreadPool(5);
     public static void main(String[] args) {
         Long ms = System.currentTimeMillis();
-        ISumLoop is = num -> {
-            System.out.println(num);
-        };
+        ISumLoop is = System.out::println;
         for (int i = 1; i <= 100000; i++) {
             final int idx = i;
             executorService.execute(() -> {
@@ -20,7 +15,7 @@ public class RunnableSubmitExample2 {
                 for (int j = 1; j <= idx; j++) {
                     sum += j;
                 }
-                //is.print(sum);
+                is.print(sum);
             });
         }
         executorService.shutdown();
