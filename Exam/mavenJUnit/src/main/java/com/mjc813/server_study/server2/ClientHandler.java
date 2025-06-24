@@ -1,4 +1,4 @@
-package com.mjc813.server_study.server2.server;
+package com.mjc813.server_study.server2;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,8 +1,6 @@
 package com.mjc813.server_study.client;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.util.Scanner;
 
 public class ClientWrite implements Runnable {

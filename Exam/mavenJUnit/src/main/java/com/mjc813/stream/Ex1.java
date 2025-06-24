@@ -11,7 +11,6 @@ public class Ex1 {
         for (int i = 0; i < 10000; i++) {
             list1.add((int) (Math.random()*1000+1));
         }
-
 //        Map<Boolean, List<Integer>> collect = list1.stream()
 //                .sorted()
 //                .collect(Collectors.partitioningBy(a -> a > 500));
