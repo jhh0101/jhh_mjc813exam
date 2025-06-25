@@ -2,10 +2,10 @@ package com.mjc.studyjava.client;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class ClientWriter implements Runnable {
+
 
     private Client client;
     private DataOutputStream output;
@@ -22,6 +22,7 @@ public class ClientWriter implements Runnable {
             System.out.println("===========================================================================================");
             System.out.println("1:변경할이름(이름변경) , 2 방 목록보기 3:방 번호(방 입장) 4 방 생성 5:방 번호(방 삭제) q 종료 ");
             System.out.println("===========================================================================================");
+
             while (true) {
                 String sendMessage = scanner.nextLine();
                 if (sendMessage.isEmpty()) {

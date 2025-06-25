@@ -1,6 +1,7 @@
 package com.mjc813.server_study.chat_server.client;
 
-import com.mjc813.server_study.chat_server.ChatCommand;
+
+import com.mjc813.server_study.chat_server.ChatData;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,6 +9,5 @@ import lombok.Setter;
 @Setter
 public class ClientCommand {
     private ClientMode clientMode = ClientMode.MENU;
-    private ChatCommand firstMenu;
-    private String secondData;
+    private ChatData chatData = new ChatData();
 }

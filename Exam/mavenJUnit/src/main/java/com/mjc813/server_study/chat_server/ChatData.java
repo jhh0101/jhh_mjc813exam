@@ -1,5 +1,14 @@
 package com.mjc813.server_study.chat_server;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ChatData {
     /**
      * 명령어
@@ -13,4 +22,12 @@ public class ChatData {
      * 보낼 데이터 (명령어의 정보, 채팅메세지)
      */
     private String data;
+    /**
+     * 대화방 이름 (출력용도)
+     */
+    private String roomName;
+    /**
+     * 대화자 명 (출력용도)
+     */
+    private String userName;
 }
