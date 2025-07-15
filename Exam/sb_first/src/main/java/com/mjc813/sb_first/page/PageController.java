@@ -1,6 +1,5 @@
 package com.mjc813.sb_first.page;
 
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +9,7 @@ public class PageController {
 
     @GetMapping("/page")
     public String page(Model model){
-        model.addAttribute("name","abcdefghijklnmopqrstuvwxyz");
+        model.addAttribute("name","abc");
         return "page";
     }
 }
