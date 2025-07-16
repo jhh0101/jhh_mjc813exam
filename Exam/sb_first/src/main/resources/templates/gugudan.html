@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymelef.org">
 <head>
     <meta charset="UTF-8">
-    <title>Page</title>
+    <title>구구단 [[${num}]]단</title>
 </head>
 <body>
-    <H1> GugudanPage</H1>
-    <div>
-        <p th:each="line : ${list}" th:text="${line}"></p>
-    </div>
+    <h1> 구구단 [[${num}]]단</h1>
+    <ul>
+        <li th:each="item : ${list}" th:text="${item}"></li>
+    </ul>
 </body>
 </html>

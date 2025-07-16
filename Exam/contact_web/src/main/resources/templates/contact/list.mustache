@@ -2,13 +2,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Contact List</title>
 </head>
 <body>
-    <div>
-        {{#num}}
-            <p>{{.}}</p>
-        {{/num}}
-    </div>
+    <ul>
+        {{#list}}
+            <li>
+                {{.}}
+            </li>
+        {{/list}}
+    </ul>
 </body>
 </html>

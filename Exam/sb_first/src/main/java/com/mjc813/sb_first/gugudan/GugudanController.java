@@ -3,6 +3,7 @@ package com.mjc813.sb_first.gugudan;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
@@ -17,6 +18,17 @@ public class GugudanController {
         for (int i = 1; i < 10; i++) {
             list.add(num + " X " + i + " = " + num*i);
         }
+        model.addAttribute("num", num);
+        model.addAttribute("list", list);
+        return "gugudan";
+    }
+    @GetMapping("/gugudan/{num}")
+    public String gugudan2(@PathVariable("num") Integer num, Model model){
+        List<String> list = new ArrayList<>();
+        for (int i = 1; i < 10; i++) {
+            list.add(String.format(num + " X " + i + " = " + num*i));
+        }
+        model.addAttribute("num", num);
         model.addAttribute("list", list);
         return "gugudan";
     }
