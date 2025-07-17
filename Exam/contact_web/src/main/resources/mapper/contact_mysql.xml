@@ -4,16 +4,60 @@
 <mapper namespace="com.mjc813.contact_web.service.IContactMybatisMapper">
 
     <insert id="insert" parameterType="ContactDto" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO contact_table
-            (name, phone_number, zip_number, email)
+        INSERT INTO
+            contact_table
+            (name
+            , phone_number
+            , zip_number
+            , email)
         VALUES
-            (#{name}, #{phoneNumber}, #{zipNumber}, #{email})
+            (#{name}
+            , #{phoneNumber}
+            , #{zipNumber}
+            , #{email})
     </insert>
 
     <select id="selectAll" resultType="ContactDto">
         SELECT
-            *
+            id
+            , name
+            , phone_number
+            , zip_number
+            , email
         FROM
             contact_table
+        ORDER BY
+            id
     </select>
+
+    <select id="select" parameterType="java.lang.Integer" resultType="ContactDto">
+        SELECT
+            id
+            , name
+            , phone_number
+            , zip_number
+            , email
+        FROM
+            contact_table
+        WHERE
+            id = #{id}
+    </select>
+    <update id="update" parameterType="ContactDto">
+        UPDATE
+            contact_table
+        SET
+            name = #{name}
+            , phone_number = #{phoneNumber}
+            , zip_number = #{zipNumber}
+            , email = #{email}
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM
+            contact_table
+        WHERE
+            id = #{id}
+    </delete>
 </mapper>

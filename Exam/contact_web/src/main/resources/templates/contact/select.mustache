@@ -7,9 +7,10 @@
 
 </head>
 <body style="padding-top: 50px">
+    {{#select}}
     <table class="table table-horizontal table-bordered container">
         <thead class="thead-strong">
-            <tr>
+            <tr style="font-weight: bolder">
                 <td>ID</td>
                 <td>이름</td>
                 <td>전화번호</td>
@@ -18,21 +19,20 @@
             </tr>
         </thead>
         <tbody id="tbody">
-            {{#list}}
-                <tr>
-                    <td><a href="./modify?id={{id}}">{{id}}</a></td>
-                    <td>{{name}}</td>
-                    <td>{{phoneNumber}}</td>
-                    <td>{{zipNumber}}</td>
-                    <td>{{email}}</td>
-                </tr>
-            {{/list}}
-            {{^list}}
-                <tr>
-                    데이터가 존재하지 않습니다.
-                </tr>
-            {{/list}}
+            <tr>
+                <td>{{id}}</td>
+                <td>{{name}}</td>
+                <td>{{phoneNumber}}</td>
+                <td>{{zipNumber}}</td>
+                <td>{{email}}</td>
+            </tr>
         </tbody>
     </table>
+    {{/select}}
+    {{^select}}
+        <div class="container" style="text-align: center">
+            <b>데이터가 존재하지 않습니다.</b>
+        </div>
+    {{/select}}
 </body>
 </html>

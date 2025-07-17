@@ -30,8 +30,42 @@ public class ContactController {
 
     @GetMapping("/listAll")
     public String listView(Model model,@ModelAttribute ContactDto contact){
-        List<ContactDto> contactDto = contactRepository.selectAll(contact);
-        model.addAttribute("list", contactDto);
+        try {
+            List<ContactDto> contactDto = contactRepository.selectAll(contact);
+            model.addAttribute("list", contactDto);
+        }catch (Throwable e){
+            System.out.println(e.toString());
+        }
         return "contact/list";
+    }
+
+    @GetMapping("/select")
+    public String selectView(Model model, @RequestParam("id") Integer id){
+        try {
+            ContactDto con = contactRepository.select(id);
+            model.addAttribute("select",con);
+        }catch (Throwable e){
+            System.out.println(e.toString());
+        }
+        return "contact/select";
+    }
+
+    @GetMapping("/modify")
+    public String modifyView(Model model, @RequestParam("id") Integer id){
+        ContactDto con = contactRepository.select(id);
+        model.addAttribute("modify", con);
+        return "contact/modify";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute ContactDto contact){
+        contactRepository.update(contact);
+        return "redirect:/contact/listAll";
+    }
+
+    @PostMapping("/delete")
+    public String delete(@ModelAttribute ContactDto contact){
+        contactRepository.delete(contact.getId());
+        return "redirect:/contact/listAll";
     }
 }
