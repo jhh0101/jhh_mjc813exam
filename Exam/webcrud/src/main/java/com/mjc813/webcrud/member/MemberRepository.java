@@ -1,7 +1,8 @@
 package com.mjc813.webcrud.member;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class MemberRepository {
@@ -13,5 +14,13 @@ public class MemberRepository {
 
     public void addMember(MemberDto m){
         iM.addMember(m);
+    }
+
+    public List<MemberDto> list(){
+        return iM.list();
+    }
+
+    public MemberDto one(MemberDto m){
+        return iM.one(m);
     }
 }

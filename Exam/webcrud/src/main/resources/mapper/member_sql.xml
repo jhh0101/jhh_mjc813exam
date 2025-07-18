@@ -1,18 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mjc813.webcrud.member.IMemberMapper">
+
     <insert id="addMember" parameterType="MemberDto" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-            member_tbl
-            (user_id
+            member_tbl (
+                 user_id
+               , password
+               , name
+               , nick_name
+        ) VALUES (
+                 #{userId}
+               , #{password}
+               , #{name}
+               , #{nickName}
+               )
+    </insert>
+
+    <select id="list" resultType="MemberDto">
+        SELECT
+            id
+            , user_id
             , password
             , name
-            , nick_name)
-        VALUES
-            (#{userId}
-            , #{password}
-            , #{name}
-            , #{nickName})
-    </insert>
+            , nick_name
+        FROM
+            member_tbl
+    </select>
+
+    <select id="one" parameterType="java.lang.Long" resultType="MemberDto">
+        SELECT
+            id
+             , user_id
+             , password
+             , name
+             , nick_name
+        FROM
+            member_tbl
+        WHERE id = #{id}
+    </select>
 
 </mapper>
