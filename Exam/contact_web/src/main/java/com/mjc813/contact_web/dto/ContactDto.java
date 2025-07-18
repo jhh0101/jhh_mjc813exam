@@ -7,13 +7,17 @@ import lombok.*;
 @Setter
 public class ContactDto{
     private Integer id;
+    private String userId;
+    private String password;
     private String name;
     private String phoneNumber;
     private String zipNumber;
     private String email;
 
     public String getContactFullInfo() {
-        return String.format("[이름:%s, 전화번호:%s, ZIP:%s, Email:%s]"
+        return String.format("[아이디:%s, 비밀번호:%s, 이름:%s, 전화번호:%s, ZIP:%s, Email:%s]"
+                , this.userId
+                , this.password
                 , this.name
                 , this.phoneNumber
                 , this.zipNumber

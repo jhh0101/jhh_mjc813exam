@@ -68,4 +68,14 @@ public class ContactController {
         contactRepository.delete(contact.getId());
         return "redirect:/contact/listAll";
     }
+
+    @GetMapping("/login")
+    public String login(){
+        return "contact/login";
+    }
+
+    @PostMapping("/login")
+    public String login(@ModelAttribute ContactDto contact){
+        return "contact/select?id="+contact.getId();
+    }
 }

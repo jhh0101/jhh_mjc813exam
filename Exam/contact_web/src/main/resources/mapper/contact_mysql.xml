@@ -6,12 +6,12 @@
     <insert id="insert" parameterType="ContactDto" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
             contact_table
-            (name
+            ( name
             , phone_number
             , zip_number
             , email)
         VALUES
-            (#{name}
+            ( #{name}
             , #{phoneNumber}
             , #{zipNumber}
             , #{email})

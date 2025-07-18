@@ -9,8 +9,12 @@ import java.util.List;
 @Service
 public class ContactRepository {
 
+    private final IContactMybatisMapper iContactMapper;
+
     @Autowired
-    private IContactMybatisMapper iContactMapper;
+    public ContactRepository(IContactMybatisMapper iContactMapper) {
+        this.iContactMapper = iContactMapper;
+    }
 
     public void insert(ContactDto contact){
         iContactMapper.insert(contact);
