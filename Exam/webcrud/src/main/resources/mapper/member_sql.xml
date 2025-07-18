@@ -40,4 +40,16 @@
         WHERE id = #{id}
     </select>
 
+    <update id="modify" parameterType="MemberDto">
+        UPDATE
+            member_tbl
+        SET
+            user_id = #{userId}
+            , password = #{password}
+            , name = #{name}
+            , nick_name = #{nickName}
+        WHERE
+            id = #{id}
+    </update>
+
 </mapper>

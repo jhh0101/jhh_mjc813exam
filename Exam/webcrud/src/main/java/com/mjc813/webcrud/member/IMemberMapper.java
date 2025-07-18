@@ -9,4 +9,5 @@ public interface IMemberMapper {
     void addMember(MemberDto m);
     List<MemberDto> list();
     MemberDto one(MemberDto m);
+    void modify(MemberDto m);
 }

@@ -23,4 +23,8 @@ public class MemberRepository {
     public MemberDto one(MemberDto m){
         return iM.one(m);
     }
+
+    public void modify(MemberDto m){
+        iM.modify(m);
+    }
 }

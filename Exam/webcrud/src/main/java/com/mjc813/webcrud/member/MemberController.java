@@ -27,7 +27,6 @@ public class MemberController {
 
     @PostMapping("/insert")
     public String addMember(@ModelAttribute MemberDto m){
-        System.out.println(m.getUserId());
         mR.addMember(m);
         return "redirect:/member";
     }
@@ -45,4 +44,18 @@ public class MemberController {
         model.addAttribute("one", one);
         return "member/view";
     }
+
+    @GetMapping("/modify/{id}")
+    public String modify(@PathVariable("id") Long id, MemberDto m, Model model){
+        MemberDto one = mR.one(m);
+        model.addAttribute("one", one);
+        return "member/modify";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute MemberDto m){
+        mR.modify(m);
+        return "redirect:/member/list";
+    }
+
 }
