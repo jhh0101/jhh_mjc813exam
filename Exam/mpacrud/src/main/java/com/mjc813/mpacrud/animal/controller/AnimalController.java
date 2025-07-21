@@ -3,11 +3,15 @@ package com.mjc813.mpacrud.animal.controller;
 import com.mjc813.mpacrud.animal.dto.AnimalDto;
 import com.mjc813.mpacrud.animal.mybatis.AnimalMybatisMapper;
 import com.mjc813.mpacrud.animal.service.AnimalService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
+@Slf4j
 @Controller
 @RequestMapping("/animal")
 public class AnimalController {
@@ -25,12 +29,27 @@ public class AnimalController {
 
     @GetMapping("/addview")
     public String addView(){
-        return "/animal/addview";
+        return "animal/addview";
     }
 
     @PostMapping("/insert")
     public String insert(@ModelAttribute AnimalDto animalDto){
-        animalService.insert(animalDto);
+        try{
+            animalService.insert(animalDto);
+        } catch (Throwable e){
+            System.err.println(e.toString());
+        }
         return "redirect:/";
+    }
+
+    @GetMapping("/findAll")
+    public String findAll(Model model){
+        try{
+            List<AnimalDto> list = animalService.findAll();
+            model.addAttribute("list", list);
+        }catch (Throwable e){
+            System.err.println(e.toString());
+        }
+        return "animal/list";
     }
 }

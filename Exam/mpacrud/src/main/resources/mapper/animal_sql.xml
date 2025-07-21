@@ -12,5 +12,17 @@
             , #{age}
             , #{kind})
     </insert>
+
+    <select id="findAll" resultType="AnimalDto">
+        SELECT
+            id
+            , name
+            , age
+            , kind
+        FROM
+            animal_tbl
+        ORDER BY
+            id
+    </select>
 </mapper>
 

@@ -5,6 +5,8 @@ import com.mjc813.mpacrud.animal.mybatis.AnimalMybatisMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AnimalService {
 
@@ -16,5 +18,9 @@ public class AnimalService {
 
     public void insert(AnimalDto animalDto){
         animalMybatisMapper.insert(animalDto);
+    }
+
+    public List<AnimalDto> findAll(){
+        return animalMybatisMapper.findAll();
     }
 }
