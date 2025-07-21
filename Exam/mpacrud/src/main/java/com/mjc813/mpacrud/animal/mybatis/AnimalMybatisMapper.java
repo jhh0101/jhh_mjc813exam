@@ -9,5 +9,6 @@ import java.util.List;
 public interface AnimalMybatisMapper {
     void insert(AnimalDto animalDto);
     List<AnimalDto> findAll();
+    AnimalDto findById(Long id);
 }
 

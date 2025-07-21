@@ -24,5 +24,17 @@
         ORDER BY
             id
     </select>
+
+    <select id="findById" resultType="AnimalDto" parameterType="Long">
+        SELECT
+            id
+            , name
+            , age
+            , kind
+        FROM
+            animal_tbl
+        WHERE
+            id = #{id}
+    </select>
 </mapper>
 

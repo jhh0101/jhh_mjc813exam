@@ -23,4 +23,8 @@ public class AnimalService {
     public List<AnimalDto> findAll(){
         return animalMybatisMapper.findAll();
     }
+
+    public AnimalDto findById(Long id){
+        return animalMybatisMapper.findById(id);
+    }
 }

@@ -52,4 +52,11 @@ public class AnimalController {
         }
         return "animal/list";
     }
+
+    @GetMapping("/view")
+    public String findView(@RequestParam("id") Long id, Model model){
+        AnimalDto animalDto = animalService.findById(id);
+        model.addAttribute("data", animalDto);
+        return "animal/view";
+    }
 }
