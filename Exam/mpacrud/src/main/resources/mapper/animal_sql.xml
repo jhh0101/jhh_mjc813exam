@@ -36,5 +36,22 @@
         WHERE
             id = #{id}
     </select>
+
+    <update id="modify" parameterType="AnimalDto">
+        UPDATE
+            animal_tbl
+        SET
+          name = #{name}
+          , age = #{age}
+          , kind = #{kind}
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM
+            animal_tbl
+        WHERE id = #{id}
+    </delete>
 </mapper>
 

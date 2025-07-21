@@ -39,7 +39,7 @@ public class AnimalController {
         } catch (Throwable e){
             System.err.println(e.toString());
         }
-        return "redirect:/";
+        return "redirect:/animal/findAll";
     }
 
     @GetMapping("/findAll")
@@ -58,5 +58,24 @@ public class AnimalController {
         AnimalDto animalDto = animalService.findById(id);
         model.addAttribute("data", animalDto);
         return "animal/view";
+    }
+
+    @GetMapping("/modify")
+    public String modify(Model model,@RequestParam("id") Long id){
+        AnimalDto animalDto = animalService.findById(id);
+        model.addAttribute("data", animalDto);
+        return "animal/modify";
+    }
+
+    @PostMapping("/update")
+    public String update(@ModelAttribute AnimalDto animalDto){
+        animalService.modify(animalDto);
+        return "redirect:/animal/view?id="+animalDto.getId();
+    }
+
+    @PostMapping("/delete")
+    public String delete(AnimalDto animalDto){
+        animalService.delete(animalDto.getId());
+        return "redirect:/animal/findAll";
     }
 }

@@ -27,4 +27,12 @@ public class AnimalService {
     public AnimalDto findById(Long id){
         return animalMybatisMapper.findById(id);
     }
+
+    public void modify(AnimalDto animalDto){
+        animalMybatisMapper.modify(animalDto);
+    }
+
+    public void delete(Long id){
+        animalMybatisMapper.delete(id);
+    }
 }

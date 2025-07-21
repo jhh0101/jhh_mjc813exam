@@ -10,5 +10,7 @@ public interface AnimalMybatisMapper {
     void insert(AnimalDto animalDto);
     List<AnimalDto> findAll();
     AnimalDto findById(Long id);
+    void modify(AnimalDto animalDto);
+    void delete(Long id);
 }
 
