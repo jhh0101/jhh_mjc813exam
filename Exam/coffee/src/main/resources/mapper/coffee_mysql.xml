@@ -15,7 +15,7 @@
             , #{shots})
     </insert>
 
-    <select id="selectAll" resultType="CoffeeDto">
+    <select id="selectAll" resultType="CoffeeDto" parameterType="PagingDto">
         SELECT
             id
             , name
@@ -26,6 +26,7 @@
             coffee_tbl
         ORDER BY
             id DESC
+        LIMIT #{rows} OFFSET #{off}
     </select>
 
     <select id="selectById" resultType="CoffeeDto" parameterType="Long">
@@ -39,6 +40,13 @@
             coffee_tbl
         WHERE
             id = #{id}
+    </select>
+
+    <select id="count" resultType="Integer">
+        SELECT
+            COUNT(*) AS totalPage
+        FROM
+            coffee_tbl
     </select>
 
     <update id="update" parameterType="CoffeeDto">

@@ -6,11 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @SpringBootApplication
 public class CoffeeApplication {
-
-
     public static void main(String[] args) {
         SpringApplication.run(CoffeeApplication.class, args);
     }
-
-
 }

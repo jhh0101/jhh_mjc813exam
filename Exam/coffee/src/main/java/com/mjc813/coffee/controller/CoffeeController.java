@@ -1,12 +1,14 @@
 package com.mjc813.coffee.controller;
 
 import com.mjc813.coffee.dto.CoffeeDto;
+import com.mjc813.coffee.dto.PagingDto;
 import com.mjc813.coffee.service.CoffeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -27,8 +29,28 @@ public class CoffeeController {
     }
 
     @GetMapping("/list")
-    public String selectAll(Model model){
-        List<CoffeeDto> list = coffeeService.selectAll();
+    public String selectAll(Model model
+    , @RequestParam(value = "page", defaultValue = "1") Integer page
+    , @RequestParam(value = "rows", defaultValue = "5") Integer rows){
+
+        PagingDto pagingDto = new PagingDto(rows, page, 0);
+
+        List<Integer> pageNum = new ArrayList<>();
+        int totalPage = (int)(Math.ceil((double)coffeeService.count() / rows));
+        Integer prev = page > 1 ? page - 1 : page;
+        Integer next = page < totalPage ? page + 1 : totalPage;
+
+        for (int i = 1; i <= totalPage; i++) {
+            pageNum.add(i);
+        }
+
+        List<CoffeeDto> list = coffeeService.selectAll(pagingDto);
+
+        model.addAttribute("prev", prev);
+        model.addAttribute("next", next);
+        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("rows", rows);
+        model.addAttribute("page", page);
         model.addAttribute("list", list);
         return "coffee/list";
     }
