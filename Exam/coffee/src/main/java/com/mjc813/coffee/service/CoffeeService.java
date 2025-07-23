@@ -33,7 +33,7 @@ public class CoffeeService {
         coffeeMapper.delete(id);
     }
 
-    public Integer count(){
-        return coffeeMapper.count();
+    public Integer count(PagingDto pagingDto){
+        return coffeeMapper.count(pagingDto);
     }
 }

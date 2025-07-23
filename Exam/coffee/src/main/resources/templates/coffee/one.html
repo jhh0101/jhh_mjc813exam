@@ -13,12 +13,12 @@
         <li>커피 샷 : {{shots}}</li>
     </ul>
     <br>
-        <button type="button" onclick="document.location.href='./modify?id={{id}}'">수정</button>
+        <button type="button" onclick="document.location.href='./modify?id={{id}}&page={{page}}&rows={{rows}}'">수정</button>
     <br>
     {{/item}}
     {{^item}}
         데이터가 존재하지 않습니다.
     {{/item}}
-    <button type="button" onclick="document.location.href='./list'">목록보기</button>
+    <button type="button" onclick="document.location.href='./list?page={{page}}&rows={{rows}}'">목록보기</button>
 </body>
 </html>

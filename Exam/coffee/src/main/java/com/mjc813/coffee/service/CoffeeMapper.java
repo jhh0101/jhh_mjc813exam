@@ -13,5 +13,5 @@ public interface CoffeeMapper {
     public CoffeeDto selectById(Long id);
     public void update(CoffeeDto coffeeDto);
     public void delete(Long id);
-    public Integer count();
+    public Integer count(PagingDto pagingDto);
 }

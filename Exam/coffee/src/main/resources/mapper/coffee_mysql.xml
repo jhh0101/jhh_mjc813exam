@@ -24,6 +24,8 @@
             , shots
         FROM
             coffee_tbl
+        WHERE
+            name LIKE CONCAT('%',#{keyWord},'%')
         ORDER BY
             id DESC
         LIMIT #{rows} OFFSET #{off}
@@ -42,11 +44,13 @@
             id = #{id}
     </select>
 
-    <select id="count" resultType="Integer">
+    <select id="count" resultType="Integer" parameterType="PagingDto">
         SELECT
             COUNT(*) AS totalPage
         FROM
             coffee_tbl
+        WHERE
+            name LIKE CONCAT('%',#{keyWord},'%')
     </select>
 
     <update id="update" parameterType="CoffeeDto">

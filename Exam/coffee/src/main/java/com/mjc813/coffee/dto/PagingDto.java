@@ -13,6 +13,7 @@ public class PagingDto {
     private Integer rows;
     private Integer page;
     private Integer off;
+    private String keyWord;
 
     public Integer getOff(){
         return (getPage()-1) * getRows();
