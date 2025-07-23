@@ -1,6 +1,7 @@
 package com.mjc813.mpacrud.animal.controller;
 
 import com.mjc813.mpacrud.animal.dto.AnimalDto;
+import com.mjc813.mpacrud.animal.dto.SearchRequestDto;
 import com.mjc813.mpacrud.animal.mybatis.AnimalMybatisMapper;
 import com.mjc813.mpacrud.animal.service.AnimalService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +19,10 @@ public class AnimalController {
 
     @Autowired
     private AnimalService animalService;
+
+    SearchRequestDto searchRequestDto = new SearchRequestDto();
+
+    private final String search = "?searchType=&searchWord=&rowsOnePage=&page=";
 
     @GetMapping("/a")
     public String testA(Model model, @RequestParam("name1") String name1,@RequestParam("name2") String name2,@RequestParam("name3") String name3){
@@ -39,13 +44,19 @@ public class AnimalController {
         } catch (Throwable e){
             System.err.println(e.toString());
         }
-        return "redirect:/animal/findAll";
+        return "redirect:/animal/list"+search;
     }
 
-    @GetMapping("/findAll")
-    public String findAll(Model model){
+    @GetMapping("/list")
+    public String findAll(@RequestParam(value = "searchType", defaultValue = "name") String searchType
+            , @RequestParam(value = "searchWord", defaultValue = "") String searchWord
+            , @RequestParam(value = "rowsOnePage", defaultValue = "5") Integer rowsOnePage
+            , @RequestParam(value = "page", defaultValue = "1") Integer page
+            , Model model){
         try{
-            List<AnimalDto> list = animalService.findAll();
+            SearchRequestDto searchRequestDto = new SearchRequestDto(searchType, searchWord, rowsOnePage, page,0);
+            List<AnimalDto> list = this.animalService.findWhere(searchRequestDto);
+//            List<AnimalDto> list = animalService.findAll();
             model.addAttribute("list", list);
         }catch (Throwable e){
             System.err.println(e.toString());
@@ -76,6 +87,6 @@ public class AnimalController {
     @PostMapping("/delete")
     public String delete(AnimalDto animalDto){
         animalService.delete(animalDto.getId());
-        return "redirect:/animal/findAll";
+        return "redirect:/animal/list"+search;
     }
 }

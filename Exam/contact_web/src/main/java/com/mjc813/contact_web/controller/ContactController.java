@@ -1,6 +1,7 @@
 package com.mjc813.contact_web.controller;
 
 import com.mjc813.contact_web.dto.ContactDto;
+import com.mjc813.contact_web.dto.PagingDto;
 import com.mjc813.contact_web.service.ContactRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,9 +30,12 @@ public class ContactController {
     }
 
     @GetMapping("/listAll")
-    public String listView(Model model,@ModelAttribute ContactDto contact){
+    public String listView(Model model
+            , @RequestParam(value = "page", defaultValue = "1") Integer page){
         try {
-            List<ContactDto> contactDto = contactRepository.selectAll(contact);
+            PagingDto pagingDto = new PagingDto(2, page, 0);
+            pagingDto.setOff((page-1) * pagingDto.getRows());
+            List<ContactDto> contactDto = contactRepository.selectAll(pagingDto);
             model.addAttribute("list", contactDto);
         }catch (Throwable e){
             System.out.println(e.toString());

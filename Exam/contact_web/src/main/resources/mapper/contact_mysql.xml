@@ -17,7 +17,7 @@
             , #{email})
     </insert>
 
-    <select id="selectAll" resultType="ContactDto">
+    <select id="selectAll" resultType="ContactDto" parameterType="PagingDto">
         SELECT
             id
             , name
@@ -27,7 +27,15 @@
         FROM
             contact_table
         ORDER BY
-            id
+            id DESC
+        LIMIT #{rows} OFFSET #{off}
+    </select>
+
+    <select id="count" resultType="Integer" parameterType="ContactDto">
+        SELECT
+            COUNT(*) AS num
+        FROM
+            contact_table
     </select>
 
     <select id="select" parameterType="java.lang.Integer" resultType="ContactDto">

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mjc813.mpacrud.animal.mybatis.AnimalMybatisMapper">
-    <insert id="insert" parameterType="AnimalDto">
+    <insert id="insert" parameterType="AnimalDto" keyProperty="id" useGeneratedKeys="true">
         INSERT INTO animal_tbl
             (name
             , age
@@ -53,5 +53,20 @@
             animal_tbl
         WHERE id = #{id}
     </delete>
+
+    <select id="findWhere" parameterType="SearchRequestDto">
+        SELECT
+            id
+             , name
+             , age
+             , kind
+        FROM
+            animal_tbl
+        WHERE
+            ${searchType} LIKE CONCAT('%', #{searchWord}, '%')
+        ORDER BY
+            id
+        LIMIT #{rowsOnePage} OFFSET #{offset}
+    </select>
 </mapper>
 

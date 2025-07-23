@@ -1,6 +1,7 @@
 package com.mjc813.mpacrud.animal.mybatis;
 
 import com.mjc813.mpacrud.animal.dto.AnimalDto;
+import com.mjc813.mpacrud.animal.dto.SearchRequestDto;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -12,5 +13,7 @@ public interface AnimalMybatisMapper {
     AnimalDto findById(Long id);
     void modify(AnimalDto animalDto);
     void delete(Long id);
+    List<AnimalDto> findWhere(SearchRequestDto searchRequestDto);
+
 }
 

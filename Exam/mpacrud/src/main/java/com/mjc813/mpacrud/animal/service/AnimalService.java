@@ -1,6 +1,7 @@
 package com.mjc813.mpacrud.animal.service;
 
 import com.mjc813.mpacrud.animal.dto.AnimalDto;
+import com.mjc813.mpacrud.animal.dto.SearchRequestDto;
 import com.mjc813.mpacrud.animal.mybatis.AnimalMybatisMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,9 @@ public class AnimalService {
 
     public void delete(Long id){
         animalMybatisMapper.delete(id);
+    }
+
+    public List<AnimalDto> findWhere(SearchRequestDto searchRequestDto){
+        return animalMybatisMapper.findWhere(searchRequestDto);
     }
 }

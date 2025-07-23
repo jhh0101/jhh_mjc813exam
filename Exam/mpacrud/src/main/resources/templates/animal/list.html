@@ -7,6 +7,17 @@
 <body>
     <h1>동물 목록</h1>
     <div>
+        <h5>동물 검색</h5>
+        <label for="searchType">검색종류</label>
+        <select id="searchType" name="searchType">
+            <option value="name">이름검색</option>
+            <option value="kind">종류검색</option>
+        </select>
+        <label for="searchWord">포함단어</label>
+        <input type="text" id="searchWord" name="searchWord" value="" />
+        <button onclick="doSearch();">검색</button>
+    </div>
+    <div>
         <span>ID</span>
         <span>Name</span>
         <span>Age</span>
@@ -23,5 +34,14 @@
     {{^list}}
     데이터가 없습니다.
     {{/list}}
+    <button onclick="document.location.href='./addview'">추가</button>
 </body>
+<script>
+    function doSearch(){
+        let searchType = document.getElementById("searchType").value;
+        let searchWord = document.getElementById("searchWord").value;
+        let url = "./list?searchType="+ searchType + "&searchWord=" + searchWord + "&rowsOnePage=5&page=";
+        document.location.href = url;
+    }
+</script>
 </html>

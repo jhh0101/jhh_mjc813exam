@@ -1,6 +1,7 @@
 package com.mjc813.contact_web.service;
 
 import com.mjc813.contact_web.dto.ContactDto;
+import com.mjc813.contact_web.dto.PagingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,8 +21,8 @@ public class ContactRepository {
         iContactMapper.insert(contact);
     }
 
-    public List<ContactDto> selectAll(ContactDto contact){
-        return iContactMapper.selectAll(contact);
+    public List<ContactDto> selectAll(PagingDto pagingDto){
+        return iContactMapper.selectAll(pagingDto);
     }
 
     public ContactDto select(Integer id){
