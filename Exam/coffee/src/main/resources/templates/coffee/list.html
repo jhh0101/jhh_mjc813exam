@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>커피 목록</title>
+</head>
+<body>
+    {{#list}}
+    <ul>
+        <li>커피 이름 : {{name}}</li>
+        <li>커피 가격 : {{price}}원</li>
+        <li>커피 원두 : {{source}}</li>
+        <li>커피 샷 : {{shots}}</li>
+    </ul>
+    <button type="button" onclick="document.location.href='./one?id={{id}}'">상세 정보</button>
+    <hr>
+    {{/list}}
+    {{^list}}
+        데이터가 존재하지 않습니다.
+    {{/list}}
+    <button type="button" onclick="document.location.href='./add'">추가</button>
+</body>
+</html>
