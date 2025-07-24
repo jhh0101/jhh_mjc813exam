@@ -1,26 +1,126 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <title>커피 정보 수정</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+        }
+
+        .form-card {
+            max-width: 600px;
+            margin: 60px auto;
+            padding: 30px;
+            background-color: var(--bs-body-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--bs-border-color-translucent);
+        }
+
+        .form-title {
+            text-align: center;
+            font-size: 1.6rem;
+            color: #6f4e37;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .btn-coffee {
+            background-color: #6f4e37;
+            color: white;
+        }
+
+        .btn-coffee:hover {
+            background-color: #5a3f2a;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+        }
+    </style>
 </head>
 <body>
-    <h1> 커피 정보 수정 </h1>
-    {{#item}}
+
+<!-- 다크모드 토글 -->
+<div class="theme-toggle">
+    <button class="btn btn-outline-secondary btn-sm" onclick="toggleTheme()">🌓 테마 전환</button>
+</div>
+
+{{#item}}
+<div class="form-card">
+    <h2 class="form-title">☕ 커피 정보 수정</h2>
     <form method="post" action="./update?page={{page}}&rows={{rows}}">
-        <input type="hidden" id="id" name="id" value="{{id}}" maxlength="">
-        <label for="name">커피 이름 : </label>
-        <input type="text" id="name" name="name" value="{{name}}" maxlength="10"><br/>
-        <label for="price">커피 가격 : </label>
-        <input type="number" id="price" name="price" value="{{price}}" maxlength="30">원<br/>
-        <label for="source">커피 원두 : </label>
-        <input type="text" id="source" name="source" value="{{source}}" maxlength="10"><br/>
-        <label for="shots">커피 샷 : </label>
-        <input type="number" id="shots" name="shots" value="{{shots}}" maxlength="10"><br/>
-        <input type="submit" value="수정">
-        <input type="submit" formaction="./delete?page={{page}}&rows={{rows}}" value="삭제"><br>
-        <button type="button" onclick="history.back()">취소</button>
+        <input type="hidden" name="id" value="{{id}}">
+
+        <div class="mb-3">
+            <label for="name" class="form-label">커피 이름</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{name}}" maxlength="10" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="price" class="form-label">커피 가격</label>
+            <input type="number" class="form-control" id="price" name="price" value="{{price}}" maxlength="30" required>
+            <div class="form-text">단위: 원</div>
+        </div>
+
+        <div class="mb-3">
+            <label for="source" class="form-label">커피 원두</label>
+            <input type="text" class="form-control" id="source" name="source" value="{{source}}" maxlength="10">
+        </div>
+
+        <div class="mb-3">
+            <label for="shots" class="form-label">커피 샷</label>
+            <input type="number" class="form-control" id="shots" name="shots" value="{{shots}}" maxlength="10">
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-coffee">수정</button>
+            <!-- 삭제 버튼은 모달을 띄움 -->
+            <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">삭제</button>
+            <button type="button" class="btn btn-outline-secondary" onclick="history.back()">취소</button>
+        </div>
     </form>
-    {{/item}}
+</div>
+{{/item}}
+
+<!-- 삭제 확인 모달 -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form method="post" action="./delete?page={{page}}&rows={{rows}}">
+            <input type="hidden" name="id" value="{{item.id}}">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">⚠️ 삭제 확인</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+                </div>
+                <div class="modal-body">
+                    정말 이 커피 정보를 삭제하시겠습니까?<br><strong>{{item.name}}</strong>는 복구할 수 없습니다.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                    <button type="submit" class="btn btn-danger">삭제하기</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- 다크모드 토글 스크립트 -->
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const current = html.getAttribute('data-bs-theme');
+        html.setAttribute('data-bs-theme', current === 'dark' ? 'light' : 'dark');
+    }
+</script>
+
 </body>
 </html>

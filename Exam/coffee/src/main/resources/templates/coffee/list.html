@@ -1,13 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <title>커피 목록</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+        }
+
+        .coffee-card {
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: var(--bs-body-bg);
+            border: 1px solid var(--bs-border-color-translucent);
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .coffee-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #6f4e37;
+        }
+
+        .btn-coffee {
+            background-color: #6f4e37;
+            color: white;
+        }
+
+        .btn-coffee:hover {
+            background-color: #5a3f2a;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+    </style>
 </head>
-<body class="container" style="padding-top: 30px">
+<body class="container py-4">
+
+<!-- 다크모드 토글 버튼 -->
+<div class="theme-toggle">
+    <button class="btn btn-outline-secondary btn-sm" onclick="toggleTheme()">🌓 테마 전환</button>
+</div>
+
+<!-- 출력 행 수 & 추가 버튼 -->
+<div class="d-flex justify-content-between align-items-center mb-3">
     <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+                data-bs-toggle="dropdown" aria-expanded="false">
             출력 행 : {{pagingDto.rows}}
         </button>
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
@@ -16,47 +62,77 @@
             <li><a class="dropdown-item" href="./list?page=1&rows=15&keyWord={{pagingDto.keyWord}}">15</a></li>
         </ul>
     </div>
-    <br/>
-    <form method="get" action="./list?page={{pagingDto.page}}&rows={{pagingDto.rows}}&keyWord={{pagingDto.keyWord}}">
-        <label for="keyWord">검색어 : </label>
-        <input type="hidden" id="page" name="page" value="{{pagingDto.page}}">
-        <input type="hidden" id="rows" name="rows" value="{{pagingDto.rows}}">
-        <input type="text" id="keyWord" name="keyWord" value="">
-        <input type="submit" value="검색" />
-    </form>
-    <br>
-    {{#list}}
-    <ul>
-        <li>커피 이름 : {{name}}</li>
-        <li>커피 가격 : {{price}}원</li>
-        <li>커피 원두 : {{source}}</li>
-        <li>커피 샷 : {{shots}}</li>
+
+    <button class="btn btn-coffee" onclick="location.href='./add?page={{pagingDto.page}}&rows={{pagingDto.rows}}'">
+        + 커피 추가
+    </button>
+</div>
+
+<!-- 검색 폼 -->
+<form class="row g-2 mb-4" method="get" action="./list">
+    <input type="hidden" name="page" value="{{pagingDto.page}}">
+    <input type="hidden" name="rows" value="{{pagingDto.rows}}">
+    <div class="col-md-10">
+        <input type="text" class="form-control" id="keyWord" name="keyWord" placeholder="검색어를 입력하세요"
+               value="{{pagingDto.keyWord}}">
+    </div>
+    <div class="col-md-2">
+        <button type="submit" class="btn btn-outline-primary w-100">검색</button>
+    </div>
+</form>
+
+<!-- 커피 리스트 -->
+{{#list}}
+<div class="coffee-card">
+    <div class="coffee-title">☕ {{name}}</div>
+    <div>💰 가격: {{price}} 원</div>
+    <div>🌱 원두: {{source}}</div>
+    <div>⚡ 샷: {{shots}}</div>
+    <div class="text-end mt-3">
+        <button class="btn btn-sm btn-outline-secondary"
+                onclick="location.href='./one?id={{id}}&page={{pagingDto.page}}&rows={{pagingDto.rows}}'">
+            상세 정보 보기
+        </button>
+    </div>
+</div>
+{{/list}}
+
+{{^list}}
+<div class="alert alert-warning text-center">
+    데이터가 존재하지 않습니다.
+</div>
+{{/list}}
+
+<!-- 페이징 -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+            <a class="page-link" href="./list?page={{prev}}&rows={{pagingDto.rows}}&keyWord={{pagingDto.keyWord}}" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        {{#pageNum}}
+        <li class="page-item {{#isCurrent}}active{{/isCurrent}}">
+            <a class="page-link" href="./list?page={{.}}&rows={{pagingDto.rows}}&keyWord={{pagingDto.keyWord}}">{{.}}</a>
+        </li>
+        {{/pageNum}}
+
+        <li class="page-item">
+            <a class="page-link" href="./list?page={{next}}&rows={{pagingDto.rows}}&keyWord={{pagingDto.keyWord}}" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
     </ul>
-    <button type="button" onclick="document.location.href='./one?id={{id}}&page={{pagingDto.page}}&rows={{pagingDto.rows}}'">상세 정보</button>
-    <hr>
-    {{/list}}
-    {{^list}}
-        데이터가 존재하지 않습니다.
-    {{/list}}
-    <button type="button" onclick="document.location.href='./add?page={{pagingDto.page}}&rows={{pagingDto.rows}}'">추가</button>
-    <br/>
-    <nav aria-label="Page navigation example">
-        <ul class="pagination d-flex justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="./list?page={{prev}}&rows={{pagingDto.rows}}&keyWord={{pagingDto.keyWord}}" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            {{#pageNum}}
-            <li class="page-item"><a class="page-link" href="./list?page={{.}}&rows={{pagingDto.rows}}&keyWord={{pagingDto.keyWord}}">{{.}}</a></li>
-            {{/pageNum}}
-            <li class="page-item">
-                <a class="page-link" href="./list?page={{next}}&rows={{pagingDto.rows}}&keyWord={{pagingDto.keyWord}}" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function toggleTheme() {
+        const html = document.documentElement;
+        const current = html.getAttribute('data-bs-theme');
+        html.setAttribute('data-bs-theme', current === 'dark' ? 'light' : 'dark');
+    }
+</script>
 </body>
 </html>
