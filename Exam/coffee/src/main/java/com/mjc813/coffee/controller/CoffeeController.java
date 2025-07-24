@@ -18,9 +18,11 @@ public class CoffeeController {
     CoffeeService coffeeService;
 
     @GetMapping("/add")
-    public String addView(Model model, @ModelAttribute PagingDto pagingDto){
-        model.addAttribute("page", pagingDto.getPage());
-        model.addAttribute("rows", pagingDto.getRows());
+    public String addView(Model model
+            , @RequestParam(value = "page", defaultValue = "1") Integer page
+            , @RequestParam(value = "rows", defaultValue = "5") Integer rows){
+        model.addAttribute("page", page);
+        model.addAttribute("rows", rows);
         return "coffee/add";
     }
 
@@ -64,22 +66,24 @@ public class CoffeeController {
 
     @GetMapping("/one")
     public String selectById(@RequestParam("id") Long id
-    , @ModelAttribute PagingDto pagingDto
+    , @RequestParam(value = "page", defaultValue = "1") Integer page
+    , @RequestParam(value = "rows", defaultValue = "5") Integer rows
     , Model model){
         CoffeeDto coffeeDto = coffeeService.selectById(id);
-        model.addAttribute("page", pagingDto.getPage());
-        model.addAttribute("rows", pagingDto.getRows());
+        model.addAttribute("page", page);
+        model.addAttribute("rows", rows);
         model.addAttribute("item", coffeeDto);
         return "coffee/one";
     }
 
     @GetMapping("/modify")
     public String modify(@RequestParam("id") Long id
-    , @ModelAttribute PagingDto pagingDto
+    , @RequestParam(value = "page", defaultValue = "1") Integer page
+    , @RequestParam(value = "rows", defaultValue = "5") Integer rows
     , Model model){
         CoffeeDto coffeeDto = coffeeService.selectById(id);
-        model.addAttribute("page", pagingDto.getPage());
-        model.addAttribute("rows", pagingDto.getRows());
+        model.addAttribute("page", page);
+        model.addAttribute("rows", rows);
         model.addAttribute("item", coffeeDto);
         return "coffee/modify";
     }

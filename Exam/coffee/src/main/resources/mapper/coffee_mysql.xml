@@ -41,7 +41,7 @@
         FROM
             coffee_tbl
         WHERE
-            id = #{id}
+            id = #{value}
     </select>
 
     <select id="count" resultType="Integer" parameterType="PagingDto">
@@ -70,6 +70,6 @@
         DELETE FROM
             coffee_tbl
         WHERE
-            id = #{id}
+            id = #{value}
     </delete>
 </mapper>
