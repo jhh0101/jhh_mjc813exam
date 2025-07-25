@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: swimpool
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/swimpool_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: swimmer
+    password: a123456789
+  mustache:
+    suffix: .html
+    enabled: true
+
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: pathClass://mapper/**/*.xml
+  type-aliases-package: com.mjc813.swimpool
