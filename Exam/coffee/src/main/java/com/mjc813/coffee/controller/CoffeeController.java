@@ -1,14 +1,15 @@
 package com.mjc813.coffee.controller;
 
 import com.mjc813.coffee.dto.CoffeeDto;
+import com.mjc813.coffee.dto.PageInfoDto;
 import com.mjc813.coffee.dto.PagingDto;
 import com.mjc813.coffee.service.CoffeeService;
+import com.mjc813.coffee.util.PageUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -39,28 +40,18 @@ public class CoffeeController {
     , @RequestParam(value = "rows", defaultValue = "5") Integer rows
     , @RequestParam(value = "keyWord", defaultValue = "") String keyWord){
 
-        PagingDto pagingDto = new PagingDto(rows, page, 0, keyWord);;
-        if(rows < 1 || page < 1){
-            pagingDto.setPage(1);
-            pagingDto.setRows(5);
-        }
+        PagingDto pagingDto = new PagingDto(rows, page, 0, keyWord);
+        int totalCount = coffeeService.count(pagingDto);
 
-        List<Integer> pageNum = new ArrayList<>();
-        int totalPage = (int)(Math.ceil((double)coffeeService.count(pagingDto) / rows));
-        Integer prev = pagingDto.getPage() > 1 ? pagingDto.getPage() - 1 : pagingDto.getPage();
-        Integer next = pagingDto.getPage() < totalPage ? pagingDto.getPage() + 1 : totalPage;
-
-        for (int i = 1; i <= totalPage; i++) {
-            pageNum.add(i);
-        }
-
+        PageInfoDto pageInfo = PageUtils.getPageInfo(pagingDto, totalCount);
         List<CoffeeDto> list = coffeeService.selectAll(pagingDto);
 
-        model.addAttribute("prev", prev);
-        model.addAttribute("next", next);
-        model.addAttribute("pageNum", pageNum);
+        model.addAttribute("prev", pageInfo.getPrev());
+        model.addAttribute("next", pageInfo.getNext());
+        model.addAttribute("pageNum", pageInfo.getPageNum());
         model.addAttribute("pagingDto", pagingDto);
         model.addAttribute("list", list);
+
         return "coffee/list";
     }
 
