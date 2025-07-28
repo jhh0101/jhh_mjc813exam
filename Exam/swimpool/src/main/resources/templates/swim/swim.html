@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"
+            integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+            crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function (){
+            $.dataList();
+        });
+
+        $.add = function () {
+            let addData ={
+                "name": $("#addName").val(),
+                "lanes": $("#addLanes").val(),
+                "laneType": $("#addLaneType").val(),
+                "phoneNumber": $("#addPhoneNumber").val(),
+                "addr": $("#addAddr").val()
+            }
+            $.ajax({
+                url: 'swim/insert',
+                contentType: 'application/json',
+                dataType: 'json',
+                data: JSON.stringify(addData),
+                method: 'POST'
+            }).done(function (data){
+                console.log("Success", data.responseData);
+                $.dataList();
+                let addEl = document.getElementById('addStaticBackdrop');
+                let modal = bootstrap.Modal.getInstance(addEl);
+                modal.hide();
+                $.cleanModal();
+            }).fail(function (jqXHR, testStatus, errorThrown){
+                console.log("Error", testStatus, errorThrown);
+            });
+        };
+
+        $.dataList = function () {
+            $.ajax({
+                url: '/swim/list',
+                dataType: 'json',
+                method: 'GET'
+            }).done(function (data){
+                $.printList(data.responseData);
+            }).fail(function (jqXHR, testStatus, errorThrown){
+                console.log(jqXHR.status);
+                console.log("ERROR : ", testStatus, errorThrown);
+            });
+        }
+
+        $.dataOne = function (id) {
+            $.ajax({
+                url: '/swim/one?id='+id,
+                method: 'GET'
+            }).done(function (data){
+                $.printOne(data.responseData);
+            }).fail(function (jqXHR, testStatus, errorThrown){
+                console.log(jqXHR.status);
+                console.log("ERROR : ", testStatus, errorThrown);
+            });
+        }
+
+        $.dataUpdate = function (){
+            let jsonUpdate = {
+                id: Number($("#viewId").val()),
+                name: $("#viewName").val(),
+                lanes: Number($("#viewLanes").val()),
+                laneType: $("#viewLaneType").val(),
+                phoneNumber: $("#viewPhoneNumber").val(),
+                addr: $("#viewAddr").val()
+            }
+            $.ajax({
+                url: '/swim/update',
+                dataType: 'json',
+                data: JSON.stringify(jsonUpdate),
+                method: 'PATCH',
+                contentType: 'application/json'
+            }).done(function (data){
+                console.log("Success",data.jsonUpdate);
+                $.dataList();
+                let modalEl = document.getElementById('updateStaticBackdrop');
+                let modal = bootstrap.Modal.getInstance(modalEl);
+                modal.hide();
+            }).fail(function (jqXHR, textStatus, errorThrown){
+                console.log("Error", textStatus, errorThrown);
+            });
+        };
+
+        $.dataDelete = function (){
+            let id = {
+                id: Number($("#viewId").val())
+            };
+            $.ajax({
+                url: 'swim/delete',
+                method: 'DELETE',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify(id)
+            }).done(function (data){
+
+                let delEl = document.getElementById('updateStaticBackdrop');
+                let modal = bootstrap.Modal.getInstance(delEl);
+                modal.hide();
+                $.dataList();
+                console.log("Success", data.responseData);
+            }).fail(function (jqXHR, textStatus, errorThrown){
+                console.log("Error", textStatus, errorThrown);
+            });
+        };
+
+        $.printList = function(data){
+            $("#listData").empty();
+            for (let i = 0; i < data.length; i++) {
+                let item = data[i];
+                let list =
+                    `<li class="list-group-item"
+                style="cursor:pointer"
+                onclick="$.dataOne(${item.id})"
+                data-bs-toggle="modal"
+                data-bs-target="#updateStaticBackdrop">
+                수영장 이름: ${item.name} / 라인 수: ${item.lanes} / 라인 길이: ${item.laneType}M / 전화번호: ${item.phoneNumber} / 주소: ${item.addr}
+                </li><hr>`;
+                $("#listData").append(list);
+            }
+        }
+
+        $.printOne = function (item){
+            if(item == null || item == undefined){
+                return;
+            }
+        $("#viewId").val(item.id);
+        $("#viewName").val(item.name);
+        $("#viewLanes").val(item.lanes);
+        $("#viewLaneType").val(item.laneType);
+        $("#viewPhoneNumber").val(item.phoneNumber);
+        $("#viewAddr").val(item.addr);
+        }
+
+        $.cleanModal = function (){
+            $("#addName").val("");
+            $("#addLanes").val("");
+            $("#addLaneType").val("");
+            $("#addPhoneNumber").val("");
+            $("#addAddr").val("");
+        }
+    </script>
+</head>
+<body class="container" style="padding-top: 30px">
+    <button style="margin-left: 30px; margin-bottom: 10px" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addStaticBackdrop"> 추가하기 + </button>
+
+    <!-- addModal -->
+    <div class="modal fade" id="addStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addStaticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addStaticBackdropLabel">Modal title</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div><label for="addName" style="margin-bottom: 10px; margin-right: 10px">수영장 이름 : </label><input type="text" id="addName"></div>
+                    <div><label for="addLanes" style="margin-bottom: 10px; margin-right: 10px">라인 수 : </label><input type="text" id="addLanes"></div>
+                    <div><label for="addLaneType" style="margin-bottom: 10px; margin-right: 10px">라인 길이 : </label><select name="addLaneType" id="addLaneType">
+                        <option value="25">25M</option>
+                        <option value="50">50M</option>
+                    </select></div>
+                    <div><label for="addPhoneNumber" style="margin-bottom: 10px; margin-right: 10px">전화번호 : </label><input type="text" id="addPhoneNumber"></div>
+                    <div><label for="addAddr" style="margin-bottom: 10px; margin-right: 10px">주소 : </label><input type="text" id="addAddr"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="$.add()">생성</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul id="listData"></ul>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="updateStaticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="updateStaticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateStaticBackdropLabel">상세 보기</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        <div><input type="hidden" id="viewId"></div>
+                        <div><label for="viewName" style="margin-bottom: 10px; margin-right: 10px">수영장 이름 : </label><input type="text" id="viewName"></div>
+                        <div><label for="viewLanes" style="margin-bottom: 10px; margin-right: 10px">라인 수 : </label><input type="text" id="viewLanes"></div>
+                        <div><label for="viewLaneType" style="margin-bottom: 10px; margin-right: 10px">라인 길이 : </label><select name="viewLaneType" id="viewLaneType">
+                            <option value="25">25M</option>
+                            <option value="50">50M</option>
+                        </select></div>
+                        <div><label for="viewPhoneNumber" style="margin-bottom: 10px; margin-right: 10px">전화번호 : </label><input type="text" id="viewPhoneNumber"></div>
+                        <div><label for="viewAddr" style="margin-bottom: 10px; margin-right: 10px">주소 : </label><input type="text" id="viewAddr"></div>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="$.dataUpdate()">수정</button>
+                    <button type="button" class="btn btn-danger" onclick="$.dataDelete()">삭제</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
