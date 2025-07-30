@@ -9,9 +9,6 @@ spring:
   mustache:
     charset: UTF-8
     suffix: .html
-    enabled: false
-    servlet:
-      cache: false
 
 server:
   port: 8080
