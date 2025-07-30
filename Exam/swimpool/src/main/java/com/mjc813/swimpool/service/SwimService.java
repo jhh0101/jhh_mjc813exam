@@ -1,16 +1,17 @@
 package com.mjc813.swimpool.service;
 
 import com.mjc813.swimpool.dto.SwimDto;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class SwimService {
 
-    @Autowired
-    private SwimMapper swimMapper;
+    private final SwimMapper swimMapper;
 
     public void insert(SwimDto swimDto){
         swimMapper.insert(swimDto);
@@ -21,8 +22,9 @@ public class SwimService {
     public SwimDto selectOne(Long id){
         return swimMapper.selectOne(id);
     }
-    public void update(SwimDto swimDto){
+    public SwimDto update(SwimDto swimDto){
         swimMapper.update(swimDto);
+        return swimDto;
     }
     public void delete(Long id){
         swimMapper.delete(id);

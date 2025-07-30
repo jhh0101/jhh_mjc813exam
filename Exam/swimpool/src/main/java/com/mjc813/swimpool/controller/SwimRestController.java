@@ -21,9 +21,9 @@ public class SwimRestController {
     public ResponseEntity<ResponseDto> insert(@RequestBody SwimDto swimDto){
         try{
             this.service.insert(swimDto);
-            return ResponseEntity.ok(getResponseDto(ResponseCode.SUCCESS, "ok", swimDto));
+            return ResponseEntity.ok().body(getResponseDto(ResponseCode.SUCCESS, "ok", swimDto));
         }catch (Throwable e){
-            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.INSERT_FAIL, "fail", null));
+            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.INSERT_FAIL, "fail", e));
         }
     }
 
@@ -33,37 +33,38 @@ public class SwimRestController {
             List<SwimDto> list = this.service.selectList();
             return ResponseEntity.ok(this.getResponseDto(ResponseCode.SUCCESS, "ok", list));
         }catch (Throwable e){
-            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.SELECT_FAIL, "fail", null));
+            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.SELECT_FAIL, "fail", e));
         }
     }
 
-    @GetMapping("/one")
-    public ResponseEntity<ResponseDto> one(@RequestParam("id") Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDto> one(@PathVariable("id") Long id){
         try{
             SwimDto dto = this.service.selectOne(id);
             return ResponseEntity.ok(getResponseDto(ResponseCode.SUCCESS, "ok", dto));
         } catch (Throwable e) {
-            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.SELECT_FAIL, "fail", null));
+            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.SELECT_FAIL, "fail", e));
         }
     }
 
-    @PatchMapping("/update")
-    public ResponseEntity<ResponseDto> update(@RequestBody SwimDto swimDto){
+    @PatchMapping("/{id}")
+    public ResponseEntity<ResponseDto> update(@PathVariable("id") Long id, @RequestBody SwimDto swimDto){
         try{
-            this.service.update(swimDto);
-            return ResponseEntity.ok(getResponseDto(ResponseCode.SUCCESS, "ok", swimDto));
+            swimDto.setId(id);
+            SwimDto dto = this.service.update(swimDto);
+            return ResponseEntity.ok(getResponseDto(ResponseCode.SUCCESS, "ok", dto));
         }catch (Throwable e){
-            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.UPDATE_FAIL, "fail", swimDto));
+            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.UPDATE_FAIL, "fail", e));
         }
     }
 
-    @DeleteMapping("/delete")
-    public ResponseEntity<ResponseDto> delete(@RequestBody SwimDto swimDto){
+    @DeleteMapping("/{id}")
+    public ResponseEntity<ResponseDto> delete(@PathVariable("id") Long id){
         try{
-            this.service.delete(swimDto.getId());
-            return ResponseEntity.ok(getResponseDto(ResponseCode.SUCCESS, "ok", swimDto));
+            this.service.delete(id);
+            return ResponseEntity.ok(getResponseDto(ResponseCode.SUCCESS, "ok", true));
         }catch (Throwable e){
-            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.INSERT_FAIL, "fail", swimDto.getId()));
+            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.INSERT_FAIL, "fail", e));
         }
     }
 
