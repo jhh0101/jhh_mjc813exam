@@ -1,6 +1,7 @@
 package com.mjc813.cinema_crud.cinema.controller;
 
 import com.mjc813.cinema_crud.cinema.dto.CinemaDto;
+import com.mjc813.cinema_crud.cinema.dto.CinemaGenreDto;
 import com.mjc813.cinema_crud.cinema.service.CinemaService;
 import com.mjc813.cinema_crud.common.ResponseDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,16 @@ public class CinemaRestController {
         try{
             this.cinemaService.insert(cinemaDto);
             return ResponseEntity.ok(getResponseDto("Success", 50010, cinemaDto));
+        }catch (Throwable e){
+            return ResponseEntity.status(500).body(getResponseDto("Error", 90000, null));
+        }
+    }
+
+    @PostMapping("/genre")
+    public ResponseEntity<ResponseDto> insertWithGenre(@RequestBody CinemaGenreDto cinemaGenreDto){
+        try{
+            this.cinemaService.insertWithGenre(cinemaGenreDto);
+            return ResponseEntity.ok(getResponseDto("Success", 50010, cinemaGenreDto));
         }catch (Throwable e){
             return ResponseEntity.status(500).body(getResponseDto("Error", 90000, null));
         }

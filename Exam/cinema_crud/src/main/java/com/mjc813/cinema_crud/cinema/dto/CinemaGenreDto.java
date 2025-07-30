@@ -8,10 +8,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class CinemaDto {
+public class CinemaGenreDto {
     private Long id;
     private String name;
-    private Long genreId;
+    private String genre;
     private String playTime;
     private String casts;
     private String description;
