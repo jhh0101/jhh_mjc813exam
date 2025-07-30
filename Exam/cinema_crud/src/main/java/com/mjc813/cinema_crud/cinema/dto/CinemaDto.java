@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class CinemaDto {
     private Long id;
     private String name;
-    private String genre_id;
+    private String genreId;
     private String playTime;
     private String casts;
     private String description;

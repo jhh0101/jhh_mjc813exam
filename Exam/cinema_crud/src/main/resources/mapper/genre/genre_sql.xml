@@ -2,5 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mjc813.cinema_crud.genre.service.GenreMapper">
-
+    <insert id="insert" parameterType="GenreDto" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO
+            genre_tbl
+            ( name )
+        VALUES
+            (#{name})
+    </insert>
 </mapper>
