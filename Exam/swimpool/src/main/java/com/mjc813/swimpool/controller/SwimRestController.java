@@ -2,7 +2,9 @@ package com.mjc813.swimpool.controller;
 
 import com.mjc813.swimpool.common.ResponseCode;
 import com.mjc813.swimpool.common.ResponseDto;
+import com.mjc813.swimpool.common.ResponseListDto;
 import com.mjc813.swimpool.dto.SwimDto;
+import com.mjc813.swimpool.dto.SwimSearchDto;
 import com.mjc813.swimpool.service.SwimService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +38,23 @@ public class SwimRestController {
             return ResponseEntity.status(500).body(getResponseDto(ResponseCode.SELECT_FAIL, "fail", e));
         }
     }
+//    @PostMapping("/list")
+//    public ResponseEntity<ResponseDto> list(@RequestBody SwimSearchDto searchDto){
+//        try {
+//            SwimDto swimDto = new SwimDto();
+//            Integer count = service.totalCount(swimDto);
+//            ResponseListDto responseListDto = ResponseListDto.builder()
+//                    .curPage()
+//                    .rowsPage()
+//                    .totalPage(count)
+//                    .data()
+//                    .build();
+//            List<SwimDto> list = this.service.selectSearch(searchDto);
+//            return ResponseEntity.ok(this.getResponseDto(ResponseCode.SUCCESS, "ok", list));
+//        }catch (Throwable e){
+//            return ResponseEntity.status(500).body(getResponseDto(ResponseCode.SELECT_FAIL, "fail", e));
+//        }
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto> one(@PathVariable("id") Long id){

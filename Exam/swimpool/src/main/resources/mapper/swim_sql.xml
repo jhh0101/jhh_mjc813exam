@@ -51,13 +51,7 @@
     </insert>
 
     <select id="selectList" resultType="SwimDto">
-        SELECT
-            id
-            , name
-            , lanes
-            , lane_type
-            , phone_number
-            , addr
+        <include refid="selectSql" />
         FROM
             swimpool_tbl
     </select>
@@ -67,16 +61,19 @@
         FROM
             swimpool_tbl
         <include refid="whereSql" />
+        LIMIT #{listDto.rowsPage} OFFSET #{offSet}
+    </select>
+
+    <select id="totalPage" parameterType="SwimSearchDto" resultType="Integer">
+        SELECT
+            COUNT(*) AS totalPage
+        FROM
+            swimpool_tbl
+        <include refid="whereSql" />
     </select>
 
     <select id="selectOne" parameterType="Long" resultType="SwimDto">
-        SELECT
-            id
-            , name
-            , lanes
-            , lane_type
-            , phone_number
-            , addr
+        <include refid="selectSql" />
         FROM
             swimpool_tbl
         WHERE
