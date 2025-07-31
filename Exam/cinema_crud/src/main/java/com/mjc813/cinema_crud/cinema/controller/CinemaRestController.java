@@ -27,7 +27,7 @@ public class CinemaRestController {
             return ResponseEntity.ok(getResponseDto("Success", 50010, cinemaDto));
         }catch (Throwable e){
             log.error(e.toString());
-            return ResponseEntity.status(500).body(getResponseDto("Error", 90000, null));
+            return ResponseEntity.status(500).body(getResponseDto("insert error", 90000, null));
         }
     }
 
@@ -38,7 +38,7 @@ public class CinemaRestController {
             return ResponseEntity.ok(getResponseDto("Success", 50010, cinemaGenreDto));
         }catch (Throwable e){
             log.error(e.toString());
-            return ResponseEntity.status(500).body(getResponseDto("Error", 90000, null));
+            return ResponseEntity.status(500).body(getResponseDto("insertWithGenre error", 90000, null));
         }
     }
 
@@ -52,7 +52,7 @@ public class CinemaRestController {
             return ResponseEntity.ok(getResponseDto("Success", 50010, cinemaDto));
         } catch (Throwable e) {
             log.error(e.toString());
-            return ResponseEntity.status(500).body(getResponseDto("Error", 90000, e));
+            return ResponseEntity.status(500).body(getResponseDto("findById error", 90000, e));
         }
     }
 
@@ -63,7 +63,7 @@ public class CinemaRestController {
             return ResponseEntity.ok(getResponseDto("Success", 50010, list));
         }catch (Throwable e){
             log.error(e.toString());
-            return ResponseEntity.status(500).body(getResponseDto("Error", 90000, e));
+            return ResponseEntity.status(500).body(getResponseDto("findByWhere error", 90000, e));
         }
     }
 
@@ -74,7 +74,7 @@ public class CinemaRestController {
             return ResponseEntity.ok(getResponseDto("Success", 50010, cinemaDto));
         }catch (Throwable e){
             log.error(e.toString());
-            return ResponseEntity.status(500).body(getResponseDto("Error", 90000, e));
+            return ResponseEntity.status(500).body(getResponseDto("update error", 90000, e));
         }
     }
 
@@ -85,7 +85,7 @@ public class CinemaRestController {
             return ResponseEntity.ok(getResponseDto("Success", 50010, cinemaDto.getId()));
         }catch (Throwable e){
             log.error(e.toString());
-            return ResponseEntity.status(500).body(getResponseDto("Error", 90000, e));
+            return ResponseEntity.status(500).body(getResponseDto("delete error", 90000, e));
         }
     }
 

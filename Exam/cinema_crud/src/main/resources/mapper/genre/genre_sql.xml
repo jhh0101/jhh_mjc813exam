@@ -9,5 +9,28 @@
         VALUES
             (#{name})
     </insert>
-    
+
+    <select id="findGenre" resultType="GenreDto">
+        SELECT
+            id
+            , name
+        FROM
+            genre_tbl
+    </select>
+
+    <update id="update" parameterType="GenreDto">
+        UPDATE
+            genre_tbl
+        SET
+            name = #{name}
+        WHERE
+            id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM
+            genre_tbl
+        WHERE
+            id = #{id}
+    </delete>
 </mapper>
