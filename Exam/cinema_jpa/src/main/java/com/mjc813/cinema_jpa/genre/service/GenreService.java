@@ -14,7 +14,7 @@ public class GenreService {
     private GenreRepository genreRepository;
 
     public void insert(GenreDto genreDto){
-        GenreEntity entity = new GenreEntity(null, genreDto.getName());
+        GenreEntity entity = new GenreEntity(null, genreDto.getName()); //두개
         this.genreRepository.save(entity);
     }
     public List<GenreEntity> findGenre(){
