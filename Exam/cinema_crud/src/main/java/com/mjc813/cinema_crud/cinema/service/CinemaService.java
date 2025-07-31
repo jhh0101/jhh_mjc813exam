@@ -7,6 +7,8 @@ import com.mjc813.cinema_crud.genre.service.GenreMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CinemaService {
 
@@ -35,5 +37,17 @@ public class CinemaService {
 
         this.cinemaMapper.insert(cinemaDto);
         cinemaGenreDto.setId(cinemaDto.getId());
+    }
+    public CinemaDto findById(Long id){
+        return this.cinemaMapper.findById(id);
+    }
+    public List<CinemaGenreDto> findByWhere(){
+        return this.cinemaMapper.findByWhere();
+    }
+    public void update(CinemaDto cinemaDto){
+        this.cinemaMapper.update(cinemaDto);
+    }
+    public void delete(Long id){
+        this.cinemaMapper.delete(id);
     }
 }

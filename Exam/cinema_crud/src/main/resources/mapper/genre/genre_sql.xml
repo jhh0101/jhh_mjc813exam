@@ -9,4 +9,5 @@
         VALUES
             (#{name})
     </insert>
+    
 </mapper>
