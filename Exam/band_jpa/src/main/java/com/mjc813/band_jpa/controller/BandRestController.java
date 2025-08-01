@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -38,10 +39,20 @@ public class BandRestController {
             return ResponseEntity.status(500).body(new ResponseDto("findAll fail", 9000, null));
         }
     }
-    @PatchMapping("")
-    public ResponseEntity<ResponseDto> update(@RequestBody BandDto bandDto){
+    @GetMapping("/{id}")
+    public ResponseEntity<ResponseDto> findById(@PathVariable("id") Long id){
         try {
-            this.bandService.update(bandDto);
+            Optional<BandEntity> opt = this.bandService.findById(id);
+            return ResponseEntity.ok(new ResponseDto("findById success", 1000, opt));
+        }catch (Throwable e){
+            log.error(e.toString());
+            return ResponseEntity.status(500).body(new ResponseDto("findById fail", 9000, null));
+        }
+    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<ResponseDto> update(@PathVariable("id") Long id, @RequestBody BandDto bandDto){
+        try {
+            this.bandService.update(id, bandDto);
             return ResponseEntity.ok(new ResponseDto("update success", 1000, bandDto));
         }catch (Throwable e){
             log.error(e.toString());

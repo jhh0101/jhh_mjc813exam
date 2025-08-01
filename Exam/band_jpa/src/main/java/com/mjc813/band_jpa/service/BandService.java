@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BandService {
@@ -20,8 +21,12 @@ public class BandService {
         return this.bandRepository.findAll();
     }
 
-    public void update(BandDto bandDto){
-        this.bandRepository.save(getBandEntity(bandDto.getId(), bandDto));
+    public Optional<BandEntity> findById(Long id){
+        return this.bandRepository.findById(id);
+    }
+
+    public void update(Long id, BandDto bandDto){
+        this.bandRepository.save(getBandEntity(id, bandDto));
     }
 
     public void delete(Long id){
