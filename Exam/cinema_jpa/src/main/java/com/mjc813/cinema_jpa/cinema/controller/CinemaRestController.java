@@ -1,6 +1,7 @@
 package com.mjc813.cinema_jpa.cinema.controller;
 
 import com.mjc813.cinema_jpa.cinema.dto.CinemaDto;
+import com.mjc813.cinema_jpa.cinema.dto.CinemaEntity;
 import com.mjc813.cinema_jpa.cinema.dto.CinemaGenreDto;
 import com.mjc813.cinema_jpa.cinema.service.CinemaService;
 import com.mjc813.cinema_jpa.common.ResponseDto;
@@ -11,6 +12,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -45,11 +47,11 @@ public class CinemaRestController {
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto> findById(@PathVariable("id") Long id){
         try{
-            CinemaDto cinemaDto = this.cinemaService.findById(id);
-            if(cinemaDto == null){
+            CinemaEntity entity = this.cinemaService.findById(id);
+            if(entity == null){
                 return ResponseEntity.status(610).body(getResponseDto("Not Found", 88888, null));
             }
-            return ResponseEntity.ok(getResponseDto("Success", 50010, cinemaDto));
+            return ResponseEntity.ok(getResponseDto("Success", 50010, entity));
         } catch (Throwable e) {
             log.error(e.toString());
             return ResponseEntity.status(500).body(getResponseDto("findById error", 90000, e));

@@ -15,4 +15,13 @@ public interface ICinema {
     public void setCasts(final String casts);
     public void setDescription(final String description);
     public void setRestrictAge(final Integer restrictAge);
+    default void copyMembers(CinemaDto from){
+        setId((from.getId()));
+        setName((from.getName()));
+        setGenreId((from.getGenreId()));
+        setPlayTime((from.getPlayTime()));
+        setCasts((from.getCasts()));
+        setDescription((from.getDescription()));
+        setRestrictAge((from.getRestrictAge()));
+    }
 }

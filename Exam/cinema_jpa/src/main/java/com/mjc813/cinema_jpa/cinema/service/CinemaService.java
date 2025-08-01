@@ -1,16 +1,29 @@
 package com.mjc813.cinema_jpa.cinema.service;
 
 import com.mjc813.cinema_jpa.cinema.dto.CinemaDto;
+import com.mjc813.cinema_jpa.cinema.dto.CinemaEntity;
 import com.mjc813.cinema_jpa.cinema.dto.CinemaGenreDto;
+import com.mjc813.cinema_jpa.genre.dto.GenreEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CinemaService {
 
+    @Autowired
+    private CinemaRepository cinemaRepository;
+
     public void insert(CinemaDto cinemaDto){
-//        this.cinemaMapper.insert(cinemaDto);
+        GenreEntity genre = new GenreEntity();
+        genre.setId(cinemaDto.getGenreId());
+
+        CinemaEntity cinema = new CinemaEntity();
+        cinema.setGenre(genre);
+        cinema.copyMembers(cinemaDto);
+        this.cinemaRepository.save(cinema);
     }
     public void insertWithGenre(CinemaGenreDto cinemaGenreDto){
 //        GenreDto genreDto = new GenreDto();
@@ -29,9 +42,9 @@ public class CinemaService {
 //        this.cinemaMapper.insert(cinemaDto);
 //        cinemaGenreDto.setId(cinemaDto.getId());
     }
-    public CinemaDto findById(Long id){
-//        return this.cinemaMapper.findById(id);
-        return null;
+    public CinemaEntity findById(Long id){
+        Optional<CinemaEntity> find = this.cinemaRepository.findById(id);
+        return find.orElse(null);
     }
     public List<CinemaGenreDto> findByWhere(){
 //        return this.cinemaMapper.findByWhere();
@@ -43,4 +56,5 @@ public class CinemaService {
     public void delete(Long id){
 //        this.cinemaMapper.delete(id);
     }
+
 }

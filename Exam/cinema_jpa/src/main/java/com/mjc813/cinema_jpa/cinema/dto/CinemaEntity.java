@@ -3,12 +3,14 @@ package com.mjc813.cinema_jpa.cinema.dto;
 import com.mjc813.cinema_jpa.genre.dto.GenreEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name="cinema2_tbl")
 public class CinemaEntity implements ICinema{
