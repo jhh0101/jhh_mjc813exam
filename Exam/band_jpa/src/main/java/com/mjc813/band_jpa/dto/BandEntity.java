@@ -23,4 +23,18 @@ public class BandEntity {
     private String keyboard;
     private String vocal;
 
+    public BandEntity getBandEntity(Long id, BandDto bandDto){
+        return BandEntity.builder()
+                .id(id)
+                .name(bandDto.getName())
+                .leader(bandDto.getLeader())
+                .guitarFirst(bandDto.getGuitarFirst())
+                .guitarSecond(bandDto.getGuitarSecond())
+                .drum(bandDto.getDrum())
+                .bass(bandDto.getBass())
+                .keyboard(bandDto.getKeyboard())
+                .vocal(bandDto.getVocal())
+                .build();
+    }
+
 }

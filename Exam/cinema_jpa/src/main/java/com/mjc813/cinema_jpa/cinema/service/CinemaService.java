@@ -51,10 +51,16 @@ public class CinemaService {
         return null;
     }
     public void update(CinemaDto cinemaDto){
-//        this.cinemaMapper.update(cinemaDto);
+        GenreEntity genre = new GenreEntity();
+        genre.setId(cinemaDto.getGenreId());
+
+        CinemaEntity cinema = new CinemaEntity();
+        cinema.setGenre(genre);
+        cinema.copyMembers(cinemaDto);
+        this.cinemaRepository.save(cinema);
     }
     public void delete(Long id){
-//        this.cinemaMapper.delete(id);
+        this.cinemaRepository.deleteById(id);
     }
 
 }

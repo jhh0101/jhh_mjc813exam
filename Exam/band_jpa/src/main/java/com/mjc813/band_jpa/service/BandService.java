@@ -14,7 +14,7 @@ public class BandService {
     private BandRepository bandRepository;
 
     public void insert(BandDto bandDto){
-        this.bandRepository.save(getBandEntity(null, bandDto));
+        this.bandRepository.save(new BandEntity().getBandEntity(null, bandDto));
     }
 
     public List<BandEntity> findAll(){
@@ -26,24 +26,12 @@ public class BandService {
     }
 
     public void update(Long id, BandDto bandDto){
-        this.bandRepository.save(getBandEntity(id, bandDto));
+        this.bandRepository.save(new BandEntity().getBandEntity(id, bandDto));
     }
 
     public void delete(Long id){
         this.bandRepository.deleteById(id);
     }
 
-    private BandEntity getBandEntity(Long id, BandDto bandDto){
-        return BandEntity.builder()
-                .id(id)
-                .name(bandDto.getName())
-                .leader(bandDto.getLeader())
-                .guitarFirst(bandDto.getGuitarFirst())
-                .guitarSecond(bandDto.getGuitarSecond())
-                .drum(bandDto.getDrum())
-                .bass(bandDto.getBass())
-                .keyboard(bandDto.getKeyboard())
-                .vocal(bandDto.getVocal())
-                .build();
-    }
+
 }
