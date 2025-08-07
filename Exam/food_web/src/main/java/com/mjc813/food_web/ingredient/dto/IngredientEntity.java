@@ -1,5 +1,7 @@
 package com.mjc813.food_web.ingredient.dto;
 
+import com.mjc813.food_web.ingredient_category.dto.IIngredientCategory;
+import com.mjc813.food_web.ingredient_category.dto.IngredientCategoryDto;
 import com.mjc813.food_web.ingredient_category.dto.IngredientCategoryEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -29,17 +31,25 @@ public class IngredientEntity implements IIngredient {
 
     @Override
     public Long getIngredientCategoryId() {
-        if(this.ingredientCategory == null){
-            return 0L;
-        }
-        return this.ingredientCategory.getId();
+        return 0L;
+    }
+
+    @Override
+    public IIngredientCategory getIngredientCategory() {
+        return this.ingredientCategory;
     }
 
     @Override
     public void setIngredientCategoryId(Long categoryId) {
-        if(this.ingredientCategory == null){
-            return;
-        }
-        this.ingredientCategory.setId(categoryId);
+
     }
+
+    @Override
+    public void setIngredientCategory(IIngredientCategory ingredientCategory) {
+        if( this.ingredientCategory == null ) {
+            this.ingredientCategory = new IngredientCategoryEntity();
+        }
+        this.ingredientCategory.copyIngredientCategory(ingredientCategory);
+    }
+    
 }

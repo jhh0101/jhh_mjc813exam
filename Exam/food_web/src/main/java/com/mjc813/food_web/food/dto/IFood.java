@@ -19,7 +19,7 @@ public interface IFood {
     public void setIngredientId(Long ingredientId);
     public void setFoodCategoryId(Long foodCategoryId);
 
-    default void copyFoods(FoodDto from){
+    default void copyFoods(IFood from){
         setId(from.getId());
         setName(from.getName());
         setSpicyLevel(from.getSpicyLevel());

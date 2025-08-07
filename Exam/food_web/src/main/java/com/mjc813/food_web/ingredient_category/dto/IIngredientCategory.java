@@ -6,7 +6,7 @@ public interface IIngredientCategory {
     public void setId(Long id);
     public void setName(String name);
 
-    default void copyIngredientCategory(IngredientCategoryDto from){
+    default void copyIngredientCategory(IIngredientCategory from){
         setId(from.getId());
         setName(from.getName());
     }

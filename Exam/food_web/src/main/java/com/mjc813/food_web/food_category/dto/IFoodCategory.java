@@ -9,8 +9,15 @@ public interface IFoodCategory {
     public void setId(Long id);
     public void setName(String name);
 
-    default void copyFoodCategory(FoodCategoryDto from){
-        setId(from.getId());
-        setName(from.getName());
+    default void copyFoodCategory(IFoodCategory iFood){
+        if(iFood == null){
+            return;
+        }
+        if (iFood.getId() != null){
+            setId(iFood.getId());
+        }
+        if (iFood.getName() != null){
+            setName(iFood.getName());
+        }
     }
 }
