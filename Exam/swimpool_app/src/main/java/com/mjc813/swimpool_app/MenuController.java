@@ -1,13 +1,11 @@
-package com.mjc813.swimpool_app.swimpool;
+package com.mjc813.swimpool_app;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class MenuController {
@@ -68,4 +66,6 @@ public class MenuController {
         session.invalidate();
         return "redirect:/";
     }
+
+
 }

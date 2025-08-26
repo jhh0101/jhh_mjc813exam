@@ -14,22 +14,19 @@
     </sql>
     <insert id="addUser" parameterType="UserDto" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
-            user_tbl(id
-                    , user
+            user_tbl( name
                     , user_name
                     , password
                     , email
                     , phone_number
-                    , role
-                    , max_lock)
+                    , role )
         VALUES
-            ( #{id}
+            ( #{name}
             , #{userName}
             , #{password}
             , #{email}
             , #{phoneNumber}
-            , #{role}
-            , #{maxLock} )
+            , #{role} )
     </insert>
     <select id="findAll" parameterType="UserDto" resultType="UserDto">
         SELECT
@@ -51,12 +48,12 @@
         UPDATE
             user_tbl
         SET
-          user_name = #{userName}
+            name = #{name}
+          , user_name = #{userName}
           , password = #{password}
           , email = #{email}
           , phone_number = #{phoneNumber}
           , role = #{role}
-          , max_lock = #{maxLock}
         WHERE
             id = #{id}
     </update>
