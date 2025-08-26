@@ -26,7 +26,7 @@ public class UserRestController {
                 .build();
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public ResponseEntity<ResponseDto> insert(@Validated @RequestBody UserDto dto){
         try {
             userService.addUser(dto);

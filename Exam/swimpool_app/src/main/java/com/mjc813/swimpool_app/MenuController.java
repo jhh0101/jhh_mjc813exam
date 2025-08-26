@@ -67,5 +67,11 @@ public class MenuController {
         return "redirect:/";
     }
 
+    @GetMapping("/users")
+    public String userMenu(HttpServletRequest request
+            , HttpServletResponse response
+            , HttpSession session){
+        return "/user/user";
+    }
 
 }
