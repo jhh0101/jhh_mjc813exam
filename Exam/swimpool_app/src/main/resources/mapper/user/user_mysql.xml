@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mjc813.swimpool_app.user.service.UserMapper">
+    <sql id="select">
+        id
+        , name
+        , user_name
+        , password
+        , email
+        , phone_number
+        , role
+        , max_lock
+    </sql>
+    <insert id="addUser" parameterType="UserDto" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+            user_tbl(id
+                    , user
+                    , user_name
+                    , password
+                    , email
+                    , phone_number
+                    , role
+                    , max_lock)
+        VALUES
+            ( #{id}
+            , #{userName}
+            , #{password}
+            , #{email}
+            , #{phoneNumber}
+            , #{role}
+            , #{maxLock} )
+    </insert>
+    <select id="findAll" parameterType="UserDto" resultType="UserDto">
+        SELECT
+            <include refid="select"/>
+        FROM
+            user_tbl
+        ORDER BY id DESC
+    </select>
+    <select id="findById" parameterType="UserDto" resultType="UserDto">
+        SELECT
+            <include refid="select"/>
+        FROM
+            user_tbl
+        WHERE
+            id = #{id}
+        ORDER BY id DESC
+    </select>
+    <update id="updateUser" parameterType="Long">
+        UPDATE
+            user_tbl
+        SET
+          user_name = #{userName}
+          , password = #{password}
+          , email = #{email}
+          , phone_number = #{phoneNumber}
+          , role = #{role}
+          , max_lock = #{maxLock}
+        WHERE
+            id = #{id}
+    </update>
+    <delete id="deleteUser" parameterType="Long">
+        DELETE FROM
+            user_tbl
+        WHERE
+            id = #{id}
+    </delete>
+</mapper>

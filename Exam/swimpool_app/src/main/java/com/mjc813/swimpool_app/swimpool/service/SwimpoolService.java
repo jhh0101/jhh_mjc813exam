@@ -1,6 +1,7 @@
 package com.mjc813.swimpool_app.swimpool.service;
 
 import com.mjc813.swimpool_app.swimpool.dto.SwimpoolDto;
+import com.mjc813.swimpool_app.swimpool.dto.SwimpoolSearchingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +32,14 @@ public class SwimpoolService {
 
     public void delete(Integer id) {
         this.swimpoolMapper.delete(id);
+    }
+
+
+    public Integer countByWhere(SwimpoolSearchingDto dto) {
+        return this.swimpoolMapper.countByWhere(dto);
+    }
+
+    public List<SwimpoolDto> findByWhere(SwimpoolSearchingDto dto) {
+        return this.swimpoolMapper.findByWhere(dto);
     }
 }
