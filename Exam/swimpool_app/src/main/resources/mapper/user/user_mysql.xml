@@ -38,7 +38,7 @@
             user_tbl
         ORDER BY id DESC
     </select>
-    <select id="findById" parameterType="UserDto" resultType="UserDto">
+    <select id="findById" parameterType="Long" resultType="UserDto">
         SELECT
             <include refid="select"/>
         FROM
@@ -47,7 +47,7 @@
             id = #{id}
         ORDER BY id DESC
     </select>
-    <update id="updateUser" parameterType="Long">
+    <update id="updateUser" parameterType="UserDto">
         UPDATE
             user_tbl
         SET
