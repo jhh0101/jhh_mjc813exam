@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: spacrud_ex
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springboot_db?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: springboot_user
+    password: a123456789
+  mustache:
+    suffix: .html
+    servlet:
+      cache: false
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+
+mybatis:
+  mapper-locations: classpath:/mapper/**/*.xml
+  type-aliases-package: com.mjc813.spacrud_ex
+  configuration:
+    map-underscore-to-camel-case: true
+
+server:
+  port: 8081
