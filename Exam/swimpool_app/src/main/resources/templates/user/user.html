@@ -13,16 +13,16 @@
 
     </div>
 
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="$.modalFooter(null);">
         회원가입
     </button>
 
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="true" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="$.clearForm();"></button>
                 </div>
                 <div class="modal-body">
                     <div><input type="hidden" id="id"></div>
@@ -40,8 +40,7 @@
                     <input type="text" id="role" value="USER" maxlength="20" readonly/></div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" onclick="$.clearForm();" data-bs-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-primary" onclick="$.insert();" data-bs-dismiss="modal">회원가입</button>
+
                 </div>
             </div>
         </div>
@@ -63,10 +62,6 @@
         $("#role").val("USER")
     }
 
-    $.loadList = function () {
-
-    }
-
     $.printList = (list) => {
         let strHtml = "";
         for ( let i = 0; i < list.length; i++ ) {
@@ -84,8 +79,8 @@
 <!--            <div class="row gx-4 gx-lg-5">\-->
             <div class="col-md-4 mb-5">\
                 <div class="card h-100">\
-                    <div class="card-body">\
-                        <a onclick="$.selectOne(${item.id});>\
+                    <div class="card-body" data-bs-toggle="modal" data-bs-target="#staticBackdrop">\
+                        <a onclick="$.findById(${item.id}); $.modalFooter(${item.id});">\
                         <h2 class="card-title">${item.name}</h2>\
                         <div>닉네임 : ${item.userName}</div>\
                         <div>비밀번호 : ${item.password}</div>\
@@ -117,6 +112,7 @@
             , contentType: 'application/json'
         }).done(function (result, textStatus, jqXHR){
             console.log("Success : " + result);
+            $.findAll();
             $.clearForm();
         }).fail(function(jqXHR, textStatus, errorThrown) {
             // ajax 비동기 요청 실행후에 에러 응답이 왔을때 실행
@@ -143,6 +139,97 @@
             }
             alert(msg);
         });
+    }
+
+    $.findById = function (id){
+        $.ajax({
+            url : `/user/`+id,
+            type : 'GET'
+        }).done(function (result, textStatus, jqXHR){
+            console.log("Success : " + result);
+            $.showOne(result.data);
+
+        }).fail(function (jqXHR, textStatus, errorThrown){
+            let msg = "";
+            for( let i = 0; i < jqXHR.responseJSON.errors.length; i++ ) {
+                msg += `${jqXHR.responseJSON.errors[i].codes[1]} : ${jqXHR.responseJSON.errors[i].defaultMessage}\n`;
+            }
+            alert(msg);
+        });
+    }
+
+    $.showOne = function (item){
+        $("#id").val(item.id),
+        $("#name").val(item.name),
+        $("#userName").val(item.userName),
+        $("#password").val(item.password),
+        $("#email").val(item.email),
+        $("#phoneNumber").val(item.phoneNumber)
+    }
+
+    $.update = function (){
+        let data = {
+            "id" : $("#id").val(),
+            "name" : $("#name").val(),
+            "userName" : $("#userName").val(),
+            "password" : $("#password").val(),
+            "email" : $("#email").val(),
+            "phoneNumber" : $("#phoneNumber").val(),
+            "role" : $("#role").val()
+        }
+        $.ajax({
+            url : '/user/'+data.id,
+            type : 'PATCH',
+            data : JSON.stringify(data),
+            dataType : 'JSON',
+            contentType : 'application/json'
+        }).done(function (data, textStatus, jqXHR){
+            console.log("Success : " + data);
+            $.findAll();
+            $.clearForm();
+        }).fail(function (jqXHR,textStatus , errorThrown){
+            let msg = "";
+            for( let i = 0; i < jqXHR.responseJSON.errors.length; i++ ) {
+                msg += `${jqXHR.responseJSON.errors[i].codes[1]} : ${jqXHR.responseJSON.errors[i].defaultMessage}\n`;
+            }
+            alert(msg);
+        });
+    }
+
+    $.delete = function (){
+        let data = {
+            "id" : $("#id").val()
+        }
+        $.ajax({
+            url : '/user/'+data.id,
+            type : 'DELETE'
+        }).done(function (data, textStatus, jqXHR){
+            console.log("Success : " + data);
+            $.findAll();
+            $.clearForm();
+        }).fail(function (jqXHR,textStatus , errorThrown){
+            let msg = "";
+            for( let i = 0; i < jqXHR.responseJSON.errors.length; i++ ) {
+                msg += `${jqXHR.responseJSON.errors[i].codes[1]} : ${jqXHR.responseJSON.errors[i].defaultMessage}\n`;
+            }
+            alert(msg);
+        });
+    }
+
+    $.modalFooter = function (id){
+        let str = "";
+        str += `<button type="button" class="btn btn-secondary" onclick="$.clearForm();" data-bs-dismiss="modal">취소</button>`;
+
+        if(id == null){
+            str += `<button type="button" class="btn btn-primary" onclick="$.insert();" data-bs-dismiss="modal">회원가입</button>`;
+            $(".modal-footer").empty();
+            $(".modal-footer").append(str);
+        }else{
+            str += `<button type="button" class="btn btn-primary" onclick="$.update();" data-bs-dismiss="modal">수정</button>
+                    <button type="button" class="btn btn-danger" onclick="$.delete();" data-bs-dismiss="modal">삭제</button>`;
+            $(".modal-footer").empty();
+            $(".modal-footer").append(str);
+        }
     }
 </script>
 </html>
