@@ -6,12 +6,16 @@ import com.mjc813.swimpool_app.security.dto.LoginDto;
 import com.mjc813.swimpool_app.user.dto.UserDto;
 import com.mjc813.swimpool_app.user.service.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginService {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     public ResponseDto login(LoginDto loginDto) {
         if ( loginDto == null ) {
@@ -21,8 +25,12 @@ public class LoginService {
         if ( find == null ) {
             return ResponseDto.builder().code(ResponseEnum.LoginFail.getCode()).responseEnum(ResponseEnum.LoginFail).build();
         }
-        if ( !loginDto.getPassword().equals(find.getPassword()) ) {
-            return ResponseDto.builder().code(ResponseEnum.LoginFail.getCode()).responseEnum(ResponseEnum.LoginFail).build();
+
+        if (!encoder.matches(loginDto.getPassword(), find.getPassword())){
+//            if ( !loginDto.getPassword().equals(find.getPassword()) ) {
+//                return ResponseDto.builder().code(ResponseEnum.LoginFail.getCode()).responseEnum(ResponseEnum.LoginFail).build();
+//            }
+            return ResponseDto.builder().code(ResponseEnum.LoginFail.getCode()).responseEnum(ResponseEnum.LoginFail).data(find).build();
         }
         return ResponseDto.builder().code(ResponseEnum.Success.getCode()).responseEnum(ResponseEnum.Success).data(find).build();
     }

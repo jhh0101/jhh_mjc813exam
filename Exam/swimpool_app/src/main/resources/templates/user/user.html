@@ -221,7 +221,7 @@
         str += `<button type="button" class="btn btn-secondary" onclick="$.clearForm();" data-bs-dismiss="modal">취소</button>`;
 
         if(id == null){
-            str += `<button type="button" class="btn btn-primary" onclick="$.insert();" data-bs-dismiss="modal">회원가입</button>`;
+            str += `<a href="http://localhost:8084/login"><button type="button" class="btn btn-primary" onclick="$.insert();" data-bs-dismiss="modal">회원가입</button></a>`;
             $(".modal-footer").empty();
             $(".modal-footer").append(str);
         }else{

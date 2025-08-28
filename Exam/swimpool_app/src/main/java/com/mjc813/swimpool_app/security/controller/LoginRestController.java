@@ -27,7 +27,7 @@ public class LoginRestController {
                 .build();
     }
 
-    @PostMapping("/api/vi/cookie_rest/login")
+    @PostMapping("/api/v1/cookie_rest/login")
     public ResponseEntity<ResponseDto> cookieLogin(
             @RequestBody LoginDto loginDto
             , HttpServletResponse response
@@ -52,8 +52,24 @@ public class LoginRestController {
         }
     }
 
-    @PostMapping("/api/vi/session_rest/login")
+    @PostMapping("/api/v1/session_rest/login")
     public ResponseEntity<ResponseDto> sessionLogin(@RequestBody LoginDto loginDto) {
+        try {
+            ResponseDto responseDto = this.loginService.login(loginDto);
+            if ( responseDto.getResponseEnum() != ResponseEnum.Success ) {
+                return ResponseEntity.status(401).body(responseDto);
+            }
+            return ResponseEntity.ok().body(responseDto);
+        } catch (Throwable e) {
+            log.error(e.toString());
+            return ResponseEntity.status(500).body(
+                    this.getResponse(ResponseEnum.LoginFail, null)
+            );
+        }
+    }
+
+    @PostMapping("/api/v1/spring_rest/login")
+    public ResponseEntity<ResponseDto> springLogin(@RequestBody LoginDto loginDto) {
         try {
             ResponseDto responseDto = this.loginService.login(loginDto);
             if ( responseDto.getResponseEnum() != ResponseEnum.Success ) {

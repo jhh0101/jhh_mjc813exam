@@ -1,15 +1,20 @@
 package com.mjc813.swimpool_app.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDto {
+@Builder
+public class UserDto implements UserDetails {
     private Long id;
     private String name;
     private String userName;
@@ -18,4 +23,16 @@ public class UserDto {
     private String phoneNumber;
     private String role;
     private Integer maxLock;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(this.getRole()));
+        return list;
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
 }
