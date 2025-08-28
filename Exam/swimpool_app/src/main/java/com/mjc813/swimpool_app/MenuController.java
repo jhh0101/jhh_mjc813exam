@@ -1,14 +1,22 @@
 package com.mjc813.swimpool_app;
 
+import com.mjc813.swimpool_app.user.dto.UserDto;
+import com.mjc813.swimpool_app.user.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.Arrays;
+import java.util.Optional;
 
 @Controller
 public class MenuController {
+
+    private UserService userService;
 
     @GetMapping("/swimpool")
     public String swimpoolMenu(HttpServletRequest request
@@ -74,4 +82,10 @@ public class MenuController {
         return "/user/user";
     }
 
+    @GetMapping("/login")
+    public String loginMenu(HttpServletRequest request
+            , HttpServletResponse response
+            , HttpSession session){
+        return "/login/login";
+    }
 }

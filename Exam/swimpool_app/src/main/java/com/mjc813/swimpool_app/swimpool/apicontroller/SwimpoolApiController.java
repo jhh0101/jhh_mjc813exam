@@ -51,7 +51,7 @@ public class SwimpoolApiController {
 
     // 데이터 1개를 출력하는 RestFull API
     @GetMapping("/{id}")
-    public ResponseEntity<ResponseDto> getOne(@PathVariable Integer id) {
+    public ResponseEntity<ResponseDto> getOne(@PathVariable Long id) {
         try {
             SwimpoolDto one = this.swimpoolService.findById(id);   // id 번호로 DB 에서 찾아서 리턴해야 한다.
             return ResponseEntity.ok().body(
@@ -91,7 +91,7 @@ public class SwimpoolApiController {
 
     // 데이터 1개를 U 수정하는 RestFull API
     @PatchMapping("/{id}")
-    public ResponseEntity<ResponseDto> update(@PathVariable("id") Integer id
+    public ResponseEntity<ResponseDto> update(@PathVariable("id") Long id
             , @RequestBody SwimpoolDto dto) {
         try {
             dto.setId(id);

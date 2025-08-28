@@ -16,7 +16,7 @@ public class SwimpoolService {
         return this.swimpoolMapper.findAll();
     }
 
-    public SwimpoolDto findById(Integer id) {
+    public SwimpoolDto findById(Long id) {
         return this.swimpoolMapper.findById(id);
     }
 

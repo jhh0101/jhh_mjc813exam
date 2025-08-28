@@ -11,7 +11,7 @@ import lombok.*;
 @Builder
 public class SwimpoolDto {
     // DB 에 있는 swimpool_tbl 테이블의 컬럼 정보
-    private Integer id;
+    private Long id;
 
     @Size(min=4, max=30)
     private String name;

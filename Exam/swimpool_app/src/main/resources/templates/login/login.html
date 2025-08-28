@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+{{#loginUser}}
+<div>
+    <div>로그인한 사람 이름 : {{name}}</div>
+    <div>로그인한 사람 아이디 : {{userName}}</div>
+    <form method="post" action="/api/v1/mpa/logout">
+        <button>form로그아웃</button>
+    </form>
+    <div onclick="$.logout();">ajax로그아웃</div>
+</div>
+{{/loginUser}}
+{{^loginUser}}
+    <form method="post" action="/api/v1/cookie_mpa/login">
+        <div><label for="userName">아이디 : </label><input type="text" id="userName" name="userName" value="" maxlength="20"/></div>
+        <div><label for="password">비밀번호 : </label><input type="password" id="password" name="password" value="" maxlength="20"/></div>
+        <div><button type="submit">form 로그인</button></div>
+    </form>
+        <div><a onclick="$.login();">ajax 로그인</a></div>
+{{/loginUser}}
+</body>
+<script>
+    $.login = function (){
+        let data = {
+            "userName" : $("#userName").val(),
+            "password" : $("#password").val()
+        }
+        $.ajax({
+            url : 'api/vi/cookie_rest/login',
+            type : 'POST',
+            data : JSON.stringify(data),
+            dataType : 'JSON',
+            contentType : 'application/json'
+        }).done(function(a, b, c){
+            alert('로그인 성공');
+            location.reload(true);
+        }).fail(function(a, b, c){
+            alert('로그인 실패');
+        })
+    }
+
+    $.logout = function (){
+        $.ajax({
+            url : '/api/v1/rest/logout',
+            type : 'POST',
+        }).done(function(a, b, c){
+            alert('로그아웃 성공');
+            location.reload(true);
+        }).fail(function(a, b, c){
+            alert('로그아웃 실패');
+        })
+    }
+</script>
+</html>

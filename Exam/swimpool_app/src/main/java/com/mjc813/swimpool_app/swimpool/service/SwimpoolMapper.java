@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface SwimpoolMapper {
     public List<SwimpoolDto> findAll();
-    public SwimpoolDto findById(Integer id);
+    public SwimpoolDto findById(Long id);
     public void insert(SwimpoolDto dto);
     public void update(SwimpoolDto dto);
     public void delete(Integer id);

@@ -44,6 +44,14 @@
             id = #{id}
         ORDER BY id DESC
     </select>
+    <select id="findByUsername" parameterType="UserDto" resultType="UserDto">
+        SELECT
+            <include refid="select"/>
+        FROM
+            user_tbl
+        WHERE
+            user_name = #{userName}
+    </select>
     <update id="updateUser" parameterType="UserDto">
         UPDATE
             user_tbl
