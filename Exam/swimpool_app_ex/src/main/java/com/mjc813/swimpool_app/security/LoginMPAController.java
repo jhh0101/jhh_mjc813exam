@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Slf4j
 @Controller
 @RequestMapping("")
-public class LoginMPAController {
+public class LoginMPAController  {
     @Autowired
     private LoginService loginService;
 

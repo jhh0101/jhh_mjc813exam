@@ -27,7 +27,7 @@ public class SecurityConfig {
     private PasswordEncoder encoder;
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception  {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(AbstractHttpConfigurer::disable)
@@ -46,8 +46,10 @@ public class SecurityConfig {
                                 .requestMatchers("/api/v1/cookie_rest/**").permitAll()
                                 .requestMatchers("/swimpool/**").hasAnyAuthority("USER", "ADMIN")
                                 .requestMatchers("/api/v1/swimpool/**").hasAnyAuthority("USER", "ADMIN")
-                                .requestMatchers("/user/**").hasAuthority("ADMIN")
-                                .requestMatchers("/api/v1/user/**").hasAuthority("ADMIN")
+//                                .requestMatchers("/user/**").hasAuthority("ADMIN")
+//                                .requestMatchers("/api/v1/user/**").hasAuthority("ADMIN")
+                                .requestMatchers("/user/**").permitAll()
+                                .requestMatchers("/api/v1/user/**").permitAll()
                                 .anyRequest().authenticated()    // 이 서버는 클라이언트의 어떠한 요청이든지 인증을 하세요.
                 )
                 .authenticationProvider(authenticationProvider())

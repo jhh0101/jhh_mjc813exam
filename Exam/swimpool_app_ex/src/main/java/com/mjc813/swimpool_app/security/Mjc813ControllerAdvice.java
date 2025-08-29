@@ -20,13 +20,13 @@
 //    private UserService userService;
 //
 //    @ModelAttribute
-//    public void ControllerCheking(HttpServletRequest request
+//    public void ControllerChecking(HttpServletRequest request
 //            , HttpServletResponse response
 //            , Model model
 //            , @CookieValue(name = "mjc813", required = false) String idStr
 //            , @SessionAttribute(name = "mjc813", required = false) Long idLong
 //    ) {
-//        log.debug("ControllerCheking...{}", request.getRequestURI());
+//        log.debug("ControllerChecking...{}", request.getRequestURI());
 //        if ( idStr == null && idLong == null) {
 //            return;
 //        }
