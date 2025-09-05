@@ -1,0 +1,233 @@
+-- ------------------------------------------------------------------
+-- [수정] 테이블 이름에 예약어(USER)가 사용되어 백틱(`)으로 감쌌습니다.
+-- ------------------------------------------------------------------
+CREATE TABLE `USER` (
+	`user_id`	INT	NOT NULL,
+	`user_name`	VARCHAR(50)	NOT NULL,
+	`user_pwd`	VARCHAR(255)	NOT NULL,
+	`user_address`	VARCHAR(255)	NOT NULL,
+	`user_phone`	VARCHAR(100)	NOT NULL,
+	`user_birth`	DATETIME	NOT NULL,
+	`user_email`	VARCHAR(100)	NOT NULL,
+	`user_provider`	VARCHAR(255)	NULL,
+	`user_provider_id`	VARCHAR(255)	NULL
+);
+
+CREATE TABLE `amenities` (
+	`am_id`	INT	NOT NULL,
+	`am_category`	VARCHAR(30)	NOT NULL,
+	`icon`	VARCHAR(50)	NULL
+);
+
+CREATE TABLE `Accommodation` (
+	`com_id`	INT	NOT NULL,
+	`area_id`	varchar(100)	NOT NULL,
+	`am_id`	INT	NOT NULL,
+	`com_title`	VARCHAR(30)	NOT NULL,
+	`com_description`	TEXT	NOT NULL,
+	`com_review`	VARCHAR(100)	NULL,
+	`wish_id`	VARCHAR(100)	NOT NULL,
+	`com_address`	VARCHAR(50)	NOT NULL
+);
+
+CREATE TABLE `room_type` (
+	`room_type_id`	VARCHAR(255)	NOT NULL,
+	`com_id`	INT	NOT NULL,
+	`am_id`	INT	NOT NULL,
+	`name`	VARCHAR(255)	NOT NULL,
+	-- [권장] max_capacity: INT 또는 SMALLINT 타입으로 변경하는 것이 좋습니다. (예: `max_capacity` INT NOT NULL)
+	`max_capacity`	VARCHAR(255)	NOT NULL,
+	-- [권장] price: DECIMAL(15,2)와 같은 숫자 타입으로 변경하는 것이 좋습니다. (예: `price` DECIMAL(15,2) NOT NULL)
+	`price`	VARCHAR(255)	NOT NULL
+);
+
+
+CREATE TABLE `wish` (
+	`wish_id`	INT	NOT NULL,
+	-- [수정] USER 테이블의 user_id(INT)를 참조하므로 데이터 타입을 INT로 변경했습니다. (bigint -> INT)
+	`user_id`	INT	NOT NULL,
+	`FK`	bigint	NOT NULL,
+	`email`	VARCHAR(50)	NULL,
+	`FK2`	bigint	NULL,
+	`Field2`	boolean	NULL
+);
+
+CREATE TABLE `parlor` (
+	`par_id`	INT	NOT NULL,
+	`com_id`	INT	NOT NULL,
+	`wish_id`	INT	NOT NULL,
+	`user_id`	bigint	NOT NULL,
+	-- [수정] room_type 테이블의 room_type_id(VARCHAR)를 참조하므로 데이터 타입을 일치시켰습니다. (bigint -> VARCHAR(255))
+	`room_type_id`	VARCHAR(255) NOT NULL,
+	`com_id2`	INT	NOT NULL,
+	`am_id`	INT	NOT NULL,
+	`par_check_in`	DATETIME	NOT NULL,
+	`par_check_out`	DATETIME	NOT NULL,
+	`par_content`	TEXT	NULL,
+	`status`	VARCHAR(255)	NOT NULL
+);
+
+CREATE TABLE `reservation` (
+	`reserve_id`	VARCHAR(50)	NOT NULL,
+	`par_id`	INT	NOT NULL,
+	`user_id`	INT	NOT NULL,
+	`com_id2`	INT	NOT NULL,
+	`wish_id2`	INT	NOT NULL,
+	`user_id2`	bigint	NOT NULL,
+	`room_type_id`	VARCHAR(255)	NOT NULL,
+	`com_id22`	INT	NOT NULL,
+	`am_id`	INT	NOT NULL,
+	`status`	varchar(20)	NOT NULL	DEFAULT 'available',
+	`check_in`	DATETIME	NOT NULL,
+	`check_out`	DATETIME	NOT NULL,
+	`regdate`	VARCHAR(100)	NOT NULL,
+	-- [수정] 컬럼 이름에 예약어(update)가 사용되어 백틱(`)으로 감쌌습니다.
+	`update`	DATETIME	NULL
+);
+
+CREATE TABLE `review` (
+	`review_id`	BIGINT	NOT NULL,
+	`user_id`	BIGINT	NOT NULL,
+	`user_id2`	INT	NOT NULL,
+	`title`	VARCHAR(50)	NULL,
+	`content`	VARCHAR(1000)	NULL,
+	`score`	INT	NOT NULL	COMMENT '0~5점'
+);
+
+CREATE TABLE `discount` (
+	`discount_id`	BIGINT	NOT NULL,
+	`name`	VARCHAR(50)	NOT NULL,
+	`type`	VARCHAR(20)	NOT NULL,
+	`value`	DECIMAL(10,2) NOT NULL	DEFAULT 0,
+	`is_discount`	BOOLEAN	NULL
+);
+
+CREATE TABLE `info` (
+	`id`	INT	NOT NULL,
+	`airplane_code`	VARCHAR(100)	NOT NULL	COMMENT 'XX공항',
+	`trip_name`	VARCHAR(100)	NOT NULL,
+	-- [수정] 오타를 수정했습니다. (trip_coment -> trip_comment)
+	`trip_comment`	VARCHAR(100)	NULL
+);
+
+CREATE TABLE `img` (
+	-- [수정] 컬럼 이름에 예약어(Key)가 사용되어 백틱(`)으로 감쌌습니다.
+	`Key`	VARCHAR(100)	NOT NULL,
+	`id`	INT	NOT NULL,
+	`par_id`	INT	NOT NULL,
+	`wish_id2`	INT	NOT NULL,
+	`user_id`	bigint	NOT NULL,
+	`room_type_id2`	VARCHAR(255)	NOT NULL,
+	`com_id2`	INT	NOT NULL,
+	`am_id`	INT	NOT NULL,
+	`Picture_name`	VARCHAR(255)	NULL
+);
+
+CREATE TABLE `Card` (
+	`card_id`	VARCHAR(30)	NOT NULL,
+	`user_id`	VARCHAR(30)	NOT NULL,
+	`card_number`	VARCHAR(20)	NOT NULL,
+	`card_holder`	VARCHAR(100)	NOT NULL,
+	`expiry_date`	DATE	NOT NULL,
+	`cvc`	VARCHAR(4)	NULL,
+	`country`	VARCHAR(50)	NULL,
+	`id2`	BIGINT	NOT NULL,
+	`reservation_id`	BIGINT	NOT NULL,
+	`id22`	VARCHAR(255)	NOT NULL,
+	`am_id`	INT	NOT NULL
+);
+
+
+-- [권장] `Untitled7` 처럼 의미를 알 수 없는 테이블 이름은 `PurchaseDetails` 등 명확한 이름으로 바꾸는 것이 좋습니다.
+CREATE TABLE `PurchaseDetails` (
+	`pay_id`	VARCHAR(50)	NOT NULL,
+	`reserve_id2`	VARCHAR(50)	NOT NULL,
+	`par_id`	INT	NOT NULL,
+	`user_id`	INT	NOT NULL,
+	`com_id2`	INT	NOT NULL,
+	`user_id2`	bigint	NOT NULL,
+	`room_type_id2`	VARCHAR(255)	NOT NULL,
+	`card_id`	VARCHAR(30)	NOT NULL,
+	`user_id3`	VARCHAR(30)	NOT NULL,
+	`am_id`	INT	NOT NULL,
+	-- [권장] pay_price: DECIMAL(15,2)와 같은 숫자 타입으로 변경하는 것이 좋습니다.
+	`pay_price`	VARCHAR(255)	NOT NULL,
+	`pay_date`	DATETIME	NOT NULL,
+	`pay_way`	VARCHAR(50)	NOT NULL
+);
+
+
+CREATE TABLE `Payment` (
+	`id`	VARCHAR(30)	NOT NULL,
+	`pay_id`	VARCHAR(30)	NOT NULL,
+	`discount_id`	BIGINT	NOT NULL,
+	`amount`	DECIMAL(15,2) NOT NULL,
+	`status` ENUM('PENDING', 'SUCCESS', 'FAILED') NOT NULL DEFAULT 'PENDING',
+	`payment_date`	DATETIME NULL,
+	`pay_id2`	VARCHAR(50)	NOT NULL,
+	`reserve_id2`	VARCHAR(50)	NOT NULL,
+	`par_id`	INT	NOT NULL,
+	`user_id`	INT	NOT NULL,
+	`com_id2`	INT	NOT NULL,
+	`user_id2`	bigint	NOT NULL,
+	`room_type_id2`	VARCHAR(255)	NOT NULL,
+	`card_id`	VARCHAR(30)	NOT NULL,
+	`user_id3`	VARCHAR(30)	NOT NULL,
+	`am_id`	INT	NOT NULL
+);
+
+
+-- ----------------------------------------------------
+-- Primary Key (기본 키) 설정
+-- ----------------------------------------------------
+
+ALTER TABLE `amenities` ADD CONSTRAINT `PK_AMENITIES` PRIMARY KEY (`am_id`);
+ALTER TABLE `parlor` ADD CONSTRAINT `PK_PARLOR` PRIMARY KEY (`par_id`); -- [수정] 복합키 대신 단일키로 변경 권장
+ALTER TABLE `review` ADD CONSTRAINT `PK_REVIEW` PRIMARY KEY (`review_id`); -- [수정] 존재하지 않는 id 대신 review_id로 변경
+ALTER TABLE `reservation` ADD CONSTRAINT `PK_RESERVATION` PRIMARY KEY (`reserve_id`); -- [수정] 복합키 대신 단일키로 변경 권장
+ALTER TABLE `discount` ADD CONSTRAINT `PK_DISCOUNT` PRIMARY KEY (`discount_id`);
+ALTER TABLE `wish` ADD CONSTRAINT `PK_WISH` PRIMARY KEY (`wish_id`);
+ALTER TABLE `Accommodation` ADD CONSTRAINT `PK_ACCOMMODATION` PRIMARY KEY (`com_id`);
+ALTER TABLE `USER` ADD CONSTRAINT `PK_USER` PRIMARY KEY (`user_id`);
+ALTER TABLE `img` ADD CONSTRAINT `PK_IMG` PRIMARY KEY (`Key`);
+ALTER TABLE `PurchaseDetails` ADD CONSTRAINT `PK_PurchaseDetails` PRIMARY KEY (`pay_id`);
+ALTER TABLE `room_type` ADD CONSTRAINT `PK_ROOM_TYPE` PRIMARY KEY (`room_type_id`);
+ALTER TABLE `info` ADD CONSTRAINT `PK_INFO` PRIMARY KEY (`id`);
+ALTER TABLE `Card` ADD CONSTRAINT `PK_CARD` PRIMARY KEY (`card_id`);
+ALTER TABLE `Payment` ADD CONSTRAINT `PK_PAYMENT` PRIMARY KEY (`id`);
+
+
+-- ----------------------------------------------------
+-- Foreign Key (외래 키) 설정
+-- ----------------------------------------------------
+
+ALTER TABLE `Accommodation` ADD CONSTRAINT `FK_amenities_TO_Accommodation_1` FOREIGN KEY (`am_id`) REFERENCES `amenities` (`am_id`);
+ALTER TABLE `room_type` ADD CONSTRAINT `FK_Accommodation_TO_room_type_1` FOREIGN KEY (`com_id`) REFERENCES `Accommodation` (`com_id`);
+ALTER TABLE `wish` ADD CONSTRAINT `FK_USER_TO_wish_1` FOREIGN KEY (`user_id`) REFERENCES `USER` (`user_id`);
+ALTER TABLE `review` ADD CONSTRAINT `FK_USER_TO_review_1` FOREIGN KEY (`user_id2`) REFERENCES `USER` (`user_id`);
+ALTER TABLE `reservation` ADD CONSTRAINT `FK_USER_TO_reservation_1` FOREIGN KEY (`user_id`) REFERENCES `USER` (`user_id`);
+ALTER TABLE `parlor` ADD CONSTRAINT `FK_Accommodation_TO_parlor_1` FOREIGN KEY (`com_id`) REFERENCES `Accommodation` (`com_id`);
+ALTER TABLE `parlor` ADD CONSTRAINT `FK_wish_TO_parlor_1` FOREIGN KEY (`wish_id`) REFERENCES `wish` (`wish_id`);
+ALTER TABLE `parlor` ADD CONSTRAINT `FK_room_type_TO_parlor_1` FOREIGN KEY (`room_type_id`) REFERENCES `room_type` (`room_type_id`);
+ALTER TABLE `Payment` ADD CONSTRAINT `FK_discount_TO_Payment_1` FOREIGN KEY (`discount_id`) REFERENCES `discount` (`discount_id`);
+
+/*
+-- -------------------------------------------------------------------------------------
+-- [중요] 아래의 외래 키(Foreign Key)들은 설계 오류로 인해 주석 처리했습니다.
+-- -------------------------------------------------------------------------------------
+-- 원인: 복합 기본 키(Composite Primary Key)의 일부 컬럼만 참조하려고 시도했습니다.
+--      외래 키는 참조하는 테이블의 기본 키(PK) 컬럼 전체를 모두 포함해야 합니다.
+--      예를 들어, parlor 테이블의 PK가 (par_id, com_id) 라면, 이를 참조하는 테이블은 반드시
+--      par_id와 com_id 두 컬럼을 모두 외래 키로 지정해야 합니다.
+--
+-- 해결책: parlor, reservation, img 등 여러 컬럼으로 구성된 복합 기본 키 대신,
+--        각 테이블에 `id INT AUTO_INCREMENT`와 같은 단일 기본 키(Single Primary Key)를
+--        사용하는 것을 강력히 권장합니다. 이렇게 하면 테이블 관계가 훨씬 단순하고 명확해집니다.
+-- -------------------------------------------------------------------------------------
+
+ALTER TABLE `parlor` ADD CONSTRAINT `FK_Accommodation_TO_parlor_2` FOREIGN KEY (`am_id`) REFERENCES `Accommodation` (`am_id`);
+ALTER TABLE `parlor` ADD CONSTRAINT `FK_wish_TO_parlor_2` FOREIGN KEY (`user_id`) REFERENCES `wish` (`user_id`);
+ALTER TABLE `parlor` ADD CONSTRAINT `FK_room_type_TO_parlor_2` FOREIGN KEY (`com_id2`) REFERENCES `room_type` (`com_id`);
+ALTER TABLE `reservation` ADD CONSTRAINT `FK_parlor_TO_reservation_1` FOREIGN KEY (`par_id`) REFERENCES `parlor` (`par_id`);
+-- ... (이하 유사한 복합키 참조 오류 FK들) ...
+*/

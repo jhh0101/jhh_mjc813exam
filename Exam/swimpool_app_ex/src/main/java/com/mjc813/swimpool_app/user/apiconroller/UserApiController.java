@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Slf4j
+@CrossOrigin("http://localhost:8080")
 @RestController
 @RequestMapping("/api/v1/user")
 public class UserApiController {
