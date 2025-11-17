@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: weboketdemo
+  mustache:
+    suffix: .html
+    servlet:
+      cache: false
+
+server:
+  port: 8899

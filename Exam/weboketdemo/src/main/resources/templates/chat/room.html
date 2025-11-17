@@ -1,0 +1,20 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Room{{room.id}}</title>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+        {{#room}}
+           <div>
+               <span>{{id}}</span>
+               <span>{{roomName}}</span>
+               <span>{{count}}</span>
+           </div>
+        {{/room}}
+        <div>대화 : {{writer}}</div>
+
+</body>
+
+</html>

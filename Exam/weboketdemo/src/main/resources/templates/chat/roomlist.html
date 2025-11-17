@@ -1,0 +1,36 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+    <form action="./insert" method="post">
+        <label name="roomName">
+            <input type="text" name="roomName" placeholder="방 이름">
+        </label>
+        <input type="submit" value="방생성">
+    </form>
+    <ul>
+        {{#list}}
+        <li onclick="$.enterRoom(`{{id}}`);">
+            <span>번호 : {{id}}번 /</span>
+            <span> 방 이름 : {{roomName}} /</span>
+            <span> 참가자 수 : {{count}}</span>
+        </li>
+        {{/list}}
+    </ul>
+
+</body>
+<script>
+    $.enterRoom = (roomId) => {
+        let writer = prompt("대화명 입력");
+        if (writer == null || writer == undefined || writer.length < 1) {
+            alert("대화명을 입력하세요.")
+        }
+        let url = `/chat/enter?roomId=${roomId}&writer=${writer}`
+        document.location.href = url;
+    }
+</script>
+</html>
