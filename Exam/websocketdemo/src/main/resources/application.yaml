@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: websocketdemo
+  mustache:
+    suffix: .html
+    servlet:
+      cache: false
+
+server:
+  port: 8877
+

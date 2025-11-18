@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="/js/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+	<form method="post" action="/websocket/insert" onsubmit="return checkInsert();">
+		<label>방이름
+			<input type="text" id="roomName" name="roomName" />
+		</label>
+		<label>대화명
+			<input type="text" id="writer" name="writer" />
+		</label>
+		<input type="submit" value="방생성" />
+	</form>
+	<ul>
+	{{#list}}
+		<li onclick="$.enterRoom({{roomId}});"><span>번호: {{roomId}}</span><span>방이름: {{roomName}}</span><span>참가자수: {{count}}</span></li>
+	{{/list}}
+	</ul>
+</body>
+<script>
+	function checkInsert() {
+		let roomName = $("#roomName").val();
+		if ( roomName == null || roomName == undefined || roomName.length <= 3 ) {
+			alert("대화방 이름을 4자 이상 입력하세요.");
+			return false;
+		}
+		let writer = $("#writer").val();
+		if ( writer == null || writer == undefined || writer.length <= 1 ) {
+			alert("대화명을 2자 이상 입력하세요.");
+			return false;
+		}
+		return true;
+	}
+
+	$.enterRoom = (roomId) => {
+		let writer = prompt("대화명을 입력하세요.");
+		if ( writer == null || writer == undefined || writer.length <= 1 ) {
+			alert("대화명을 2자 이상 입력하세요.");
+			return;
+		}
+		let url = `/websocket/enter?roomId=${roomId}&writer=${writer}`
+		document.location.href = url;
+	}
+</script>
+</html>

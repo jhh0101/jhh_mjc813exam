@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	<script src="/js/jquery-3.7.1.min.js"></script>
+</head>
+<body>
+	<h3>대화명 : {{writer}}</h3>
+	<input type="text" id="message" maxlength="100" /> <button onclick="$.sendMessage();">전송</button>
+	{{#chatRoom}}
+	<div>
+		<div>id : {{roomId}}</div>
+		<div>방이름 : {{roomName}}</div>
+	</div>
+	{{/chatRoom}}
+	<button onclick="$.quitRoom();">퇴장</button>
+	<div id="chatMessageList"></div>
+</body>
+<script>
+	let url = "ws://localhost:8877/ws/chat";
+	let webSocket = new WebSocket(url);
+
+	$.sendWebsocket = (msgType, message) => {
+		let chatMessageDto = {
+			"msgType" : msgType
+			, "roomId" : {{chatRoom.roomId}}
+			, "writer" : "{{writer}}"
+			, "message" : message
+		};
+		webSocket.send(JSON.stringify(chatMessageDto));
+	}
+
+	webSocket.onopen = function(param) {
+		$.sendWebsocket("ENTER", "");
+	}
+
+	$.sendMessage = () => {
+		$.sendWebsocket("MESSAGE", $("#message").val());
+	}
+
+	$.quitRoom = () => {
+		$.sendWebsocket("OUT", "");
+		document.location.href = "/websocket/list";
+	}
+
+	webSocket.onmessage = function(param) {
+		console.log(param.data);
+		let msgObj = JSON.parse(param.data);
+		let divHtml = `<div><span>${msgObj.writer}</span> : <span>${msgObj.message}</span></div>`
+		$("#chatMessageList").append(divHtml);
+	}
+</script>
+</html>
